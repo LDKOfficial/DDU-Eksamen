@@ -1,5 +1,5 @@
 # DDU Eksamen
 
-UwU Hewwo this is owr final project
+UwU Hewwo twis is owr fwinal pwoject
 
 Hope yow inwoy
