@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 public class SelectionManager : MonoBehaviour
@@ -10,10 +11,10 @@ public class SelectionManager : MonoBehaviour
 
     public LayerMask selectionMask;
 
-    public HexGrid hexGrid;
+    private Vector3 mousePosition;
 
-    private Vector3 mousePos;
-
+    public UnityEvent<GameObject> OnUnitSelected;
+    public UnityEvent<GameObject> TerrainSelected;
 
     private void Awake()
     {
@@ -25,21 +26,27 @@ public class SelectionManager : MonoBehaviour
     public void HandleClick()
     {
         GameObject result;
-        if (FindTarget(mousePos, out result))
+        if (FindTarget(mousePosition, out result))
         {
-            Hex selectedHex = result.GetComponent<Hex>();
-            List<Vector3Int> neighbours = hexGrid.GetNeighboursFor(selectedHex.HexCoords);
-            Debug.Log($"Neigbours for {selectedHex.HexCoords} are: ");
-            foreach (Vector3Int neighbourPos in neighbours)
+            if (UnitSelected(result))
             {
-                Debug.Log(neighbourPos);
+                OnUnitSelected?.Invoke(result);
+            }
+            else
+            {
+                TerrainSelected?.Invoke(result);
             }
         }
     }
 
+    private bool UnitSelected(GameObject result)
+    {
+        return result.GetComponent<Unit>() != null;
+    }
+
     public void MousePosition(InputAction.CallbackContext context)
     {
-        mousePos = context.ReadValue<Vector2>();
+        mousePosition = context.ReadValue<Vector2>();
         //Debug.Log(mousePos);
     }
 

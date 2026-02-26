@@ -40,6 +40,12 @@ public class HexGrid : MonoBehaviour
         }
         return hexTileNeighboursDict[hexCoordinates];
     }
+
+    public Vector3Int GetClosestHex(Vector3 worldPosition)
+    {
+        worldPosition.y = 0; // might be smth else
+        return HexCoordinates.ConvertPositionToOffset(worldPosition);
+    }
     
 }
 
