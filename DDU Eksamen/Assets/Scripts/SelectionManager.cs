@@ -9,6 +9,9 @@ public class SelectionManager : MonoBehaviour
     [SerializeField]
     private Camera mainCamera;
 
+    [SerializeField]
+    private TurnControler turnController;
+
     public LayerMask selectionMask;
 
     private Vector3 mousePosition;
@@ -25,7 +28,12 @@ public class SelectionManager : MonoBehaviour
     }
     public void HandleClick()
     {
+        // player cant move if it isnt their turn
+        if (!turnController.isPlayerTurn)
+            return;
+
         GameObject result;
+
         if (FindTarget(mousePosition, out result))
         {
             if (UnitSelected(result))

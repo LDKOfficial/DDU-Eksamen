@@ -27,7 +27,7 @@ public class Hex : MonoBehaviour
     {
         Hextype.Difficult => 20,
         Hextype.Default => 10,
-        Hextype.Road => 20,
+        Hextype.Road => 5,
         _ => throw new Exception($"Hex of type {hextype} not supported")
     };
 

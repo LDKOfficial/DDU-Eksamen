@@ -9,10 +9,6 @@ public class Highlight : MonoBehaviour
     [SerializeField]
     private GameObject selectedHighlight;
 
-
-
-
-
     public void ToggleValidSelectionHighlight(bool state)
     {
         validSelectionHighlight.SetActive(state);
@@ -22,7 +18,4 @@ public class Highlight : MonoBehaviour
     {
         selectedHighlight.SetActive(state);
     }
-
-
-
 }

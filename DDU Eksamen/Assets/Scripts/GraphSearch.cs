@@ -69,7 +69,7 @@ public class GraphSearch
 
 }
 
-public struct BFSResult
+public struct BFSResult // YAY Line gonna be happy
 {
     public Dictionary<Vector3Int, Vector3Int?> visitedNodesDict;
 
