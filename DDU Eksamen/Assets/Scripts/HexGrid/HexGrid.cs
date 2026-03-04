@@ -31,7 +31,7 @@ public class HexGrid : MonoBehaviour
         
         hexTileNeighboursDict.Add(hexCoordinates, new List<Vector3Int>());
 
-        foreach (Vector3Int direction in Direction.GetDirectionList(hexCoordinates.z))
+        foreach (Vector3Int direction in Direction.GetDirectionList(hexCoordinates.y))
         {
             if (hexTileDict.ContainsKey(hexCoordinates + direction))
             {
@@ -43,7 +43,7 @@ public class HexGrid : MonoBehaviour
 
     public Vector3Int GetClosestHex(Vector3 worldPosition)
     {
-        worldPosition.y = 0; // might be smth else
+        worldPosition.z = 0; // might be smth else
         return HexCoordinates.ConvertPositionToOffset(worldPosition);
     }
     
@@ -53,23 +53,23 @@ public static class Direction
 {
     public static List<Vector3Int> directionsOffsetOdd = new List<Vector3Int>
     {
-        new Vector3Int(-1,0,1), //N1
-        new Vector3Int(0,0,1), //N2
+        new Vector3Int(-1,1,0), //N1
+        new Vector3Int(0,1,0), //N2
         new Vector3Int(1,0,0), //E
-        new Vector3Int(0,0,-1), //S2
-        new Vector3Int(-1,0,-1), //S1
+        new Vector3Int(0,-1,0), //S2
+        new Vector3Int(-1,-1, 0), //S1
         new Vector3Int(-1,0,0), //W
     };
 
     public static List<Vector3Int> directionsOffsetEven = new List<Vector3Int>
     {
-        new Vector3Int(0,0,1), //N1
-        new Vector3Int(1,0,1), //N2
+        new Vector3Int(0,1,0), //N1
+        new Vector3Int(1,1, 0), //N2
         new Vector3Int(1,0,0), //E
-        new Vector3Int(1,0,-1), //S2
-        new Vector3Int(0,0,-1), //S1
+        new Vector3Int(1,-1, 0), //S2
+        new Vector3Int(0,-1,0), //S1
         new Vector3Int(-1,0,0), //NW
     };
 
-    public static List<Vector3Int> GetDirectionList(int z) => z % 2 == 0 ? directionsOffsetEven : directionsOffsetOdd; // if else statement
+    public static List<Vector3Int> GetDirectionList(int y) => y % 2 == 0 ? directionsOffsetEven : directionsOffsetOdd; // if else statement
 }

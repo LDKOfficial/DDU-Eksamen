@@ -62,7 +62,7 @@ public class Unit : MonoBehaviour
     private IEnumerator MovementCoroutine(Vector3 endPositione)
     {
         Vector3 startPosition = transform.position;
-        endPositione.y = startPosition.y;
+        endPositione.z = startPosition.z;
         float timeElapsed = 0;
 
         while (timeElapsed < movementDuration)

@@ -19,6 +19,9 @@ public class Hex : MonoBehaviour
     {
         hexcoordinates = GetComponent<HexCoordinates>();
         highlight = GetComponent<Highlight>();
+
+        // trying to make pixel perfect and stop pixels from overlapping
+
     }
 
 
