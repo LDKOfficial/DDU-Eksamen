@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7660340612808652971}
   - component: {fileID: 746802826307986931}
   - component: {fileID: 7866629365812958737}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Circle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -162,7 +162,7 @@ GameObject:
   - component: {fileID: 351854023350627021}
   - component: {fileID: 7066981386198956384}
   - component: {fileID: 9211385603391411772}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Circle (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -315,7 +315,7 @@ GameObject:
   - component: {fileID: 1836296012199473254}
   - component: {fileID: 1536655051552455861}
   - component: {fileID: 4515135728807207879}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -483,7 +483,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7640311350432922896}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Highlight
   m_TagString: Untagged
   m_Icon: {fileID: 0}

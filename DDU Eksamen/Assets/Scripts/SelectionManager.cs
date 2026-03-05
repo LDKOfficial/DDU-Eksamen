@@ -58,7 +58,7 @@ public class SelectionManager : MonoBehaviour
     public void MousePosition(InputAction.CallbackContext context)
     {
         mousePosition = context.ReadValue<Vector2>();
-        //Debug.Log(mousePos);
+        Debug.Log(mainCamera.ScreenToWorldPoint(mousePosition));
     }
 
     private bool FindTarget(Vector3 mousePosition, out GameObject result)
@@ -66,10 +66,12 @@ public class SelectionManager : MonoBehaviour
         //RaycastHit hit;
         RaycastHit2D hit2D;
         Ray ray = mainCamera.ScreenPointToRay(mousePosition);
+        Vector2 direction = new Vector2(0, 0);
+        
+        
+        //hit2D = Physics2D.GetRayIntersection(ray, 100f, selectionMask);
 
-        //hit2D = GetRayIntersection(ray, 100f, selectionMask);
-
-        hit2D = Physics2D.Raycast(mainCamera.transform.position, ray.direction, selectionMask);
+        hit2D = Physics2D.Raycast(mainCamera.ScreenToWorldPoint(mousePosition), direction, selectionMask);
 
 
         result = hit2D.collider.gameObject;

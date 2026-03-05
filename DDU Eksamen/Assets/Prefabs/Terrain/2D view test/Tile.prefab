@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9100700419112838860}
   - component: {fileID: 1790768955583986432}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Tile Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -100,7 +100,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5223388433032513197}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Highlights
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -134,7 +134,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6230449683001788875}
   - component: {fileID: 8184631406740448372}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Selected
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -228,7 +228,7 @@ GameObject:
   - component: {fileID: 5399725046698938338}
   - component: {fileID: 5584569492824422340}
   - component: {fileID: 4394069314375117984}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: Tile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -356,7 +356,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1585392208234944230}
   - component: {fileID: 2238315511979700756}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Valid Selection
   m_TagString: Untagged
   m_Icon: {fileID: 0}
