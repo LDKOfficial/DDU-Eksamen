@@ -58,7 +58,7 @@ public class SelectionManager : MonoBehaviour
     public void MousePosition(InputAction.CallbackContext context)
     {
         mousePosition = context.ReadValue<Vector2>();
-        Debug.Log(mainCamera.ScreenToWorldPoint(mousePosition));
+        //Debug.Log(mainCamera.ScreenToWorldPoint(mousePosition));
     }
 
     private bool FindTarget(Vector3 mousePosition, out GameObject result)
@@ -71,12 +71,21 @@ public class SelectionManager : MonoBehaviour
         
         //hit2D = Physics2D.GetRayIntersection(ray, 100f, selectionMask);
 
-        hit2D = Physics2D.Raycast(mainCamera.ScreenToWorldPoint(mousePosition), direction, selectionMask);
+        //hit2D = Physics2D.Raycast(mainCamera.ScreenToWorldPoint(mousePosition), direction, selectionMask);
 
+        
+        //result = hit2D.collider.gameObject;
 
-        result = hit2D.collider.gameObject;
+        if (hit2D = Physics2D.Raycast(mainCamera.ScreenToWorldPoint(mousePosition), direction, 100, selectionMask))
+        {
+            result = hit2D.collider.gameObject;
+            Debug.Log("Game object " + hit2D.collider.gameObject);
+            Debug.Log("overlap " + hit2D.collider.OverlapPoint(mainCamera.ScreenToWorldPoint(mousePosition)));
+            return true;
+        }
 
-        return true;
+        result = null;
+        return false;
 
         //result = null;
         //return false;

@@ -21,6 +21,8 @@ public class UnitManager : MonoBehaviour
 
         Unit unitReference = unit.GetComponent<Unit>();
 
+        Debug.Log(unitReference.ToString());
+
         if (CheckIfSameUnitSelected(unitReference))
             return;
 
