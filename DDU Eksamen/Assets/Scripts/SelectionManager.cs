@@ -66,7 +66,7 @@ public class SelectionManager : MonoBehaviour
         //RaycastHit hit;
         RaycastHit2D hit2D;
         Ray ray = mainCamera.ScreenPointToRay(mousePosition);
-        Vector2 direction = new Vector2(0, 0);
+        Vector2 direction = new Vector2(1f, 1f);
         
         
         //hit2D = Physics2D.GetRayIntersection(ray, 100f, selectionMask);
@@ -75,6 +75,7 @@ public class SelectionManager : MonoBehaviour
 
 
         result = hit2D.collider.gameObject;
+
         return true;
 
         //result = null;
