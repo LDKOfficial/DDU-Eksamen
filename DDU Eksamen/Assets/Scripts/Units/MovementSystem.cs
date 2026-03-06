@@ -10,11 +10,12 @@ public class MovementSystem : MonoBehaviour
 
     public void HideRange(HexGrid hexGrid)
     {
-        foreach (Vector3Int hexPosition in movementRange.GetRangePositions())
-        {
-            hexGrid.GetTileAt(hexPosition).highlight.ToggleValidSelectionHighlight(false);
-        }
-        movementRange = new BFSResult();
+            Debug.Log("Hello you shouldnt be here");
+            foreach (Vector3Int hexPosition in movementRange.GetRangePositions())
+            {
+                hexGrid.GetTileAt(hexPosition).highlight.ToggleValidSelectionHighlight(false);
+            }
+            movementRange = new BFSResult();
     }
 
     public void ShowRange(Unit selectedUnit, HexGrid hexGrid)

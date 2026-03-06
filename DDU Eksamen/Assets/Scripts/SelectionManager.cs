@@ -13,7 +13,8 @@ public class SelectionManager : MonoBehaviour
     [SerializeField]
     private TurnControler turnController;
 
-    public LayerMask selectionMask;
+    public LayerMask selectionMaskUnit;
+    public LayerMask selectionMaskTerrain;
 
     private Vector3 mousePosition;
 
@@ -39,12 +40,14 @@ public class SelectionManager : MonoBehaviour
 
         if (FindTarget(mousePosition, out result))
         {
-            if (UnitSelected(result))
+            if (result.tag == "Player")
             {
+                Debug.Log("player event");
                 OnUnitSelected?.Invoke(result);
             }
             else
             {
+                Debug.Log("terrain event");
                 TerrainSelected?.Invoke(result);
             }
         }
@@ -66,17 +69,17 @@ public class SelectionManager : MonoBehaviour
         //RaycastHit hit;
         RaycastHit2D hit2D;
         Ray ray = mainCamera.ScreenPointToRay(mousePosition);
-        Vector2 direction = new Vector2(1f, 1f);
-        
-        
-        //hit2D = Physics2D.GetRayIntersection(ray, 100f, selectionMask);
+        Vector2 direction = new Vector2(0f, 0f);
 
-        //hit2D = Physics2D.Raycast(mainCamera.ScreenToWorldPoint(mousePosition), direction, selectionMask);
+        if (hit2D = Physics2D.Raycast(mainCamera.ScreenToWorldPoint(mousePosition), direction, Mathf.Infinity, selectionMaskUnit)) //dstance infinity might be a bit much
+        {
+            result = hit2D.collider.gameObject;
+            Debug.Log("Game object " + hit2D.collider.gameObject);
+            Debug.Log("overlap " + hit2D.collider.OverlapPoint(mainCamera.ScreenToWorldPoint(mousePosition)));
+            return true;
+        }
 
-        
-        //result = hit2D.collider.gameObject;
-
-        if (hit2D = Physics2D.Raycast(mainCamera.ScreenToWorldPoint(mousePosition), direction, 100, selectionMask))
+        else if (hit2D = Physics2D.Raycast(mainCamera.ScreenToWorldPoint(mousePosition), direction, Mathf.Infinity, selectionMaskTerrain)) //dstance infinity might be a bit much
         {
             result = hit2D.collider.gameObject;
             Debug.Log("Game object " + hit2D.collider.gameObject);
@@ -86,8 +89,5 @@ public class SelectionManager : MonoBehaviour
 
         result = null;
         return false;
-
-        //result = null;
-        //return false;
     }
 }

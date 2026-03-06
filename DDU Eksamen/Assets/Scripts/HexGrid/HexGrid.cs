@@ -5,7 +5,7 @@ public class HexGrid : MonoBehaviour
 {
     Dictionary<Vector3Int, Hex> hexTileDict = new Dictionary<Vector3Int, Hex>();
     Dictionary<Vector3Int, List<Vector3Int>> hexTileNeighboursDict = new Dictionary<Vector3Int, List<Vector3Int>>();
-    private void Start()
+    private void Awake()
     {
         foreach (Hex hex in FindObjectsByType<Hex>(FindObjectsSortMode.None))
         {

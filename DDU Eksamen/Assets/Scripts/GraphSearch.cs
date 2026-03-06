@@ -8,7 +8,7 @@ using UnityEngine;
 public class GraphSearch
 {
 
-    public static BFSResult BFSGetRange(HexGrid hexgrid, Vector3Int startPoint, int movementPoints)
+    public static BFSResult BFSGetRange(HexGrid hexGrid, Vector3Int startPoint, int movementPoints)
     {
         Dictionary<Vector3Int, Vector3Int?> visitedNodes = new Dictionary<Vector3Int, Vector3Int?>(); // ? means it can be null
         Dictionary<Vector3Int, int> costSoFar = new Dictionary<Vector3Int, int>();
@@ -22,12 +22,12 @@ public class GraphSearch
         {
             Vector3Int currentNode = nodesToVisitQueue.Dequeue();
 
-            foreach (Vector3Int neighbourPoistion in hexgrid.GetNeighboursFor(currentNode))
+            foreach (Vector3Int neighbourPoistion in hexGrid.GetNeighboursFor(currentNode))
             {
-                if (hexgrid.GetTileAt(neighbourPoistion).IsObstacle())
+                if (hexGrid.GetTileAt(neighbourPoistion).IsObstacle() || hexGrid.GetTileAt(neighbourPoistion).isOccupied)
                     continue;
 
-                int nodeCost = hexgrid.GetTileAt(neighbourPoistion).GetCost();
+                int nodeCost = hexGrid.GetTileAt(neighbourPoistion).GetCost();
                 int currenCost = costSoFar[currentNode];
                 int newCost = currenCost + nodeCost;
 
@@ -49,7 +49,7 @@ public class GraphSearch
         }
        
 
-        return new BFSResult { visitedNodesDict = visitedNodes };
+        return new BFSResult { visitedNodesDict = visitedNodes, costSoFar = costSoFar };
     }
 
 
@@ -72,6 +72,7 @@ public class GraphSearch
 public struct BFSResult // YAY Line gonna be happy
 {
     public Dictionary<Vector3Int, Vector3Int?> visitedNodesDict;
+    public Dictionary<Vector3Int, int> costSoFar;
 
     public List<Vector3Int> GetPathTo(Vector3Int destination)
     {

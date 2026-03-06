@@ -24,13 +24,17 @@ public class Unit : MonoBehaviour
 
     public event Action<Unit> MovementFinished;
 
-    public void Awake()
+    public HexGrid hexGrid;
+
+    public void Start()
     {
         currentMovementPoints = MaxMovementPoints;
+        hexGrid.GetTileAt(hexGrid.GetClosestHex(transform.position)).isOccupied = true;
     }
 
     public void MoveThroughPath(List<Vector3> CurrentPath)
     {
+        hexGrid.GetTileAt(hexGrid.GetClosestHex(transform.position)).isOccupied = false;
         pathPositions = new Queue<Vector3>(CurrentPath);
         Vector3 firstTarget = pathPositions.Dequeue();
         //StartCoroutine(RotationCoroutine(firstTarget, rotationDuration));
@@ -85,6 +89,7 @@ public class Unit : MonoBehaviour
         else
         {
             Debug.Log("Movement finished!");
+            hexGrid.GetTileAt(hexGrid.GetClosestHex(endPositione)).isOccupied = true;
             MovementFinished?.Invoke(this);
         }
     }

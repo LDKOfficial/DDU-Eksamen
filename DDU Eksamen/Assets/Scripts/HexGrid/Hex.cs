@@ -15,6 +15,8 @@ public class Hex : MonoBehaviour
 
     public Vector3Int HexCoords => hexcoordinates.GetHexCoords();
 
+    public bool isOccupied = false;
+
     private void Awake()
     {
         hexcoordinates = GetComponent<HexCoordinates>();

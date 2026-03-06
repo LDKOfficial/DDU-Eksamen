@@ -31,7 +31,7 @@ public class UnitManager : MonoBehaviour
 
     private bool CheckIfSameUnitSelected(Unit unitReference)
     {
-        if (this.selectedUnit == unitReference)
+        if (selectedUnit == unitReference)
         {
             ClearOldSelection();
             return true;
@@ -54,22 +54,23 @@ public class UnitManager : MonoBehaviour
 
     private void PrepareUnitForMovement(Unit unitReference)
     {
-        if (this.selectedUnit != null)
+        if (selectedUnit != null)
         {
+            Debug.Log("Clear old");
             ClearOldSelection();
         }
 
-        this.selectedUnit = unitReference; //dunno why this.selectedUnit and not selectedUnit
-        this.selectedUnit.highlight.ToggleSelectedHighlight(true);
-        movementSystem.ShowRange(this.selectedUnit, this.hexGrid);
+        selectedUnit = unitReference; //dunno why this.selectedUnit and not selectedUnit
+        selectedUnit.highlight.ToggleSelectedHighlight(true);
+        movementSystem.ShowRange(selectedUnit, hexGrid);
     }
 
     private void ClearOldSelection()
     {
         previouslySelectedHex = null;
-        this.selectedUnit.highlight.ToggleSelectedHighlight(false);
-        movementSystem.HideRange(this.hexGrid);
-        this.selectedUnit = null;
+        selectedUnit.highlight.ToggleSelectedHighlight(false);
+        movementSystem.HideRange(hexGrid);
+        selectedUnit = null;
     }
 
     private void HandleTargetHexSelected(Hex selectedHex)
@@ -77,11 +78,11 @@ public class UnitManager : MonoBehaviour
         if (previouslySelectedHex == null || previouslySelectedHex != selectedHex)
         {
             previouslySelectedHex = selectedHex;
-            movementSystem.ShowPath(selectedHex.HexCoords, this.hexGrid);
+            movementSystem.ShowPath(selectedHex.HexCoords, hexGrid);
         }
         else
         {
-            movementSystem.MoveUnit(selectedUnit, this.hexGrid);
+            movementSystem.MoveUnit(selectedUnit, hexGrid);
             canMove = false; // Might wanna change this messes with turns
             selectedUnit.MovementFinished += ResetTurn; // Might wanna change this messes with turns
             // turn might just be to disable player doing stuff while we be movin
