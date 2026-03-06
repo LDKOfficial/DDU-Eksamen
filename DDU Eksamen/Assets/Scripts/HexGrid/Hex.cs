@@ -15,10 +15,15 @@ public class Hex : MonoBehaviour
 
     public Vector3Int HexCoords => hexcoordinates.GetHexCoords();
 
+    public bool isOccupied = false;
+
     private void Awake()
     {
         hexcoordinates = GetComponent<HexCoordinates>();
         highlight = GetComponent<Highlight>();
+
+        // trying to make pixel perfect and stop pixels from overlapping
+
     }
 
 
