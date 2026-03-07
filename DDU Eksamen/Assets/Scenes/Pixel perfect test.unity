@@ -193,6 +193,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 671022f066d3fdf488c803c783a8fe4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TurnControler
+  enemyController: {fileID: 162988376}
   turnCounter: 1
   isPlayerTurn: 1
   turnCounterDisplay: {fileID: 1942413528}
@@ -739,6 +740,50 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7487317352060323280, guid: da99882731761f04c919b407414ca235, type: 3}
   m_PrefabInstance: {fileID: 1951317460}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &162988375
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 162988377}
+  - component: {fileID: 162988376}
+  m_Layer: 0
+  m_Name: EnemyController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &162988376
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 162988375}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85e7704d038d0a84692cd92f45dd75cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyController
+--- !u!4 &162988377
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 162988375}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.33758, y: 1.29146, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &167188030 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7487317352060323280, guid: da99882731761f04c919b407414ca235, type: 3}
@@ -1695,7 +1740,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &422860198
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2175,6 +2220,7 @@ GameObject:
   - component: {fileID: 490038044}
   - component: {fileID: 490038043}
   - component: {fileID: 490038042}
+  - component: {fileID: 490038047}
   m_Layer: 8
   m_Name: Ghoul
   m_TagString: Enemy
@@ -2334,6 +2380,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &490038047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 490038041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16aa2e78b78f4e24492533a6b16efad3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Enemy
+  hexGrid: {fileID: 1377510}
 --- !u!1001 &491778521
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9745,6 +9804,7 @@ SceneRoots:
   - {fileID: 2054352226}
   - {fileID: 5804986}
   - {fileID: 962645435}
+  - {fileID: 162988377}
   - {fileID: 422860201}
   - {fileID: 1033397825}
   - {fileID: 1418049869}

@@ -5,12 +5,20 @@ using System.Linq;
 
 public class EnemyController : MonoBehaviour
 {
-    List<Enemy> Enemies;
+    private List<Enemy> Enemies;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         Enemies = FindObjectsByType<Enemy>(FindObjectsSortMode.None).ToList();
     }
 
+
+    public void EnemyMovement()
+    {
+        foreach (Enemy enemy in Enemies)
+        {
+            enemy.MoveToClosestPlayer();
+        }
+    }
 
 }
