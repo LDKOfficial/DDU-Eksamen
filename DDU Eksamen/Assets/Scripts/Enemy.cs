@@ -55,10 +55,13 @@ public class Enemy : MonoBehaviour
         {
             foreach (Vector3Int neighbour in hexGrid.GetNeighboursFor(hexGrid.GetClosestHex(playerUnit.transform.position)))
             {
-                if (range.costSoFar[neighbour] < cheapestCost)
+                if (!hexGrid.GetTileAt(neighbour).IsObstacle() & hexGrid.GetTileAt(neighbour).isOccupied == false)
                 {
-                    cheapestCost = range.costSoFar[neighbour];
-                    cheapestNeigbour = neighbour;
+                    if (range.costSoFar[neighbour] < cheapestCost)
+                    {
+                        cheapestCost = range.costSoFar[neighbour];
+                        cheapestNeigbour = neighbour;
+                    }
                 }
             }
         }
