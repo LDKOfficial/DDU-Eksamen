@@ -9,9 +9,11 @@ public class Unit : MonoBehaviour
 {
 
     public int MaxMovementPoints = 20;
-
-    
     public int currentMovementPoints;
+
+
+    public int maxHitPoints = 100;
+    public int hitPoints;
 
 
     [SerializeField]
@@ -26,10 +28,338 @@ public class Unit : MonoBehaviour
 
     public HexGrid hexGrid;
 
+    [SerializeField]
+    private List<GameObject> healthBarList = new List<GameObject>();
+
+    [SerializeField]
+    private Animator animator;
+
     public void Start()
     {
         currentMovementPoints = MaxMovementPoints;
+        hitPoints = maxHitPoints;
         hexGrid.GetTileAt(hexGrid.GetClosestHex(transform.position)).isOccupied = true;
+    }
+
+    public void TakeDamage(int damage)
+    {
+        hitPoints -= damage;
+
+        UpdateHealthBar();
+    }
+
+    private void UpdateHealthBar()
+    {
+        
+        double hitPointPercent = Convert.ToDouble(hitPoints) / Convert.ToDouble(maxHitPoints);
+        Debug.Log(hitPointPercent);
+        foreach (GameObject health in healthBarList)
+        {
+            health.SetActive(true);
+        }
+
+        if (hitPointPercent <= 0f) // 0 = 0/20
+        {
+            Die();
+        }
+        else if (hitPointPercent <= 0.05f) // 0.05 = 1/20
+        {
+            // disable all
+            healthBarList[19].SetActive(false);
+            healthBarList[18].SetActive(false);
+            healthBarList[17].SetActive(false);
+            healthBarList[16].SetActive(false);
+            healthBarList[15].SetActive(false);
+            healthBarList[14].SetActive(false);
+            healthBarList[13].SetActive(false);
+            healthBarList[12].SetActive(false);
+            healthBarList[11].SetActive(false);
+            healthBarList[10].SetActive(false);
+            healthBarList[9].SetActive(false);
+            healthBarList[8].SetActive(false);
+            healthBarList[7].SetActive(false);
+            healthBarList[6].SetActive(false);
+            healthBarList[5].SetActive(false);
+            healthBarList[4].SetActive(false);
+            healthBarList[3].SetActive(false);
+            healthBarList[2].SetActive(false);
+            healthBarList[1].SetActive(false);
+            healthBarList[0].SetActive(false);
+
+        }
+        else if (hitPointPercent <= 0.1f) // 0.1 = 2/20
+        {
+            // disable first 19
+            healthBarList[19].SetActive(false);
+            healthBarList[18].SetActive(false);
+            healthBarList[17].SetActive(false);
+            healthBarList[16].SetActive(false);
+            healthBarList[15].SetActive(false);
+            healthBarList[14].SetActive(false);
+            healthBarList[13].SetActive(false);
+            healthBarList[12].SetActive(false);
+            healthBarList[11].SetActive(false);
+            healthBarList[10].SetActive(false);
+            healthBarList[9].SetActive(false);
+            healthBarList[8].SetActive(false);
+            healthBarList[7].SetActive(false);
+            healthBarList[6].SetActive(false);
+            healthBarList[5].SetActive(false);
+            healthBarList[4].SetActive(false);
+            healthBarList[3].SetActive(false);
+            healthBarList[2].SetActive(false);
+            healthBarList[1].SetActive(false);
+        }
+        else if (hitPointPercent <= 0.15f) // 0.15 = 3/20
+        {
+            // disable first 18
+            healthBarList[19].SetActive(false);
+            healthBarList[18].SetActive(false);
+            healthBarList[17].SetActive(false);
+            healthBarList[16].SetActive(false);
+            healthBarList[15].SetActive(false);
+            healthBarList[14].SetActive(false);
+            healthBarList[13].SetActive(false);
+            healthBarList[12].SetActive(false);
+            healthBarList[11].SetActive(false);
+            healthBarList[10].SetActive(false);
+            healthBarList[9].SetActive(false);
+            healthBarList[8].SetActive(false);
+            healthBarList[7].SetActive(false);
+            healthBarList[6].SetActive(false);
+            healthBarList[5].SetActive(false);
+            healthBarList[4].SetActive(false);
+            healthBarList[3].SetActive(false);
+            healthBarList[2].SetActive(false);
+        }
+        else if (hitPointPercent <= 0.2f) // 0.2 = 4/20
+        {
+            // disable first 17
+            healthBarList[19].SetActive(false);
+            healthBarList[18].SetActive(false);
+            healthBarList[17].SetActive(false);
+            healthBarList[16].SetActive(false);
+            healthBarList[15].SetActive(false);
+            healthBarList[14].SetActive(false);
+            healthBarList[13].SetActive(false);
+            healthBarList[12].SetActive(false);
+            healthBarList[11].SetActive(false);
+            healthBarList[10].SetActive(false);
+            healthBarList[9].SetActive(false);
+            healthBarList[8].SetActive(false);
+            healthBarList[7].SetActive(false);
+            healthBarList[6].SetActive(false);
+            healthBarList[5].SetActive(false);
+            healthBarList[4].SetActive(false);
+            healthBarList[3].SetActive(false);
+        }
+        else if (hitPointPercent <= 0.25f) // 0.25 = 5/20
+        {
+            // disable first 16
+            healthBarList[19].SetActive(false);
+            healthBarList[18].SetActive(false);
+            healthBarList[17].SetActive(false);
+            healthBarList[16].SetActive(false);
+            healthBarList[15].SetActive(false);
+            healthBarList[14].SetActive(false);
+            healthBarList[13].SetActive(false);
+            healthBarList[12].SetActive(false);
+            healthBarList[11].SetActive(false);
+            healthBarList[10].SetActive(false);
+            healthBarList[9].SetActive(false);
+            healthBarList[8].SetActive(false);
+            healthBarList[7].SetActive(false);
+            healthBarList[6].SetActive(false);
+            healthBarList[5].SetActive(false);
+            healthBarList[4].SetActive(false);
+        }
+        else if (hitPointPercent <= 0.3f) // 0.3 = 6/20
+        {
+            // disable first 15
+            healthBarList[19].SetActive(false);
+            healthBarList[18].SetActive(false);
+            healthBarList[17].SetActive(false);
+            healthBarList[16].SetActive(false);
+            healthBarList[15].SetActive(false);
+            healthBarList[14].SetActive(false);
+            healthBarList[13].SetActive(false);
+            healthBarList[12].SetActive(false);
+            healthBarList[11].SetActive(false);
+            healthBarList[10].SetActive(false);
+            healthBarList[9].SetActive(false);
+            healthBarList[8].SetActive(false);
+            healthBarList[7].SetActive(false);
+            healthBarList[6].SetActive(false);
+            healthBarList[5].SetActive(false);
+        }
+        else if (hitPointPercent <= 0.35f) // 0.35 = 7/20
+        {
+            // disable first 14
+            healthBarList[19].SetActive(false);
+            healthBarList[18].SetActive(false);
+            healthBarList[17].SetActive(false);
+            healthBarList[16].SetActive(false);
+            healthBarList[15].SetActive(false);
+            healthBarList[14].SetActive(false);
+            healthBarList[13].SetActive(false);
+            healthBarList[12].SetActive(false);
+            healthBarList[11].SetActive(false);
+            healthBarList[10].SetActive(false);
+            healthBarList[9].SetActive(false);
+            healthBarList[8].SetActive(false);
+            healthBarList[7].SetActive(false);
+            healthBarList[6].SetActive(false);
+        }
+        else if (hitPointPercent <= 0.4f) // 0.4 = 8/20
+        {
+            // disable first 13
+            healthBarList[19].SetActive(false);
+            healthBarList[18].SetActive(false);
+            healthBarList[17].SetActive(false);
+            healthBarList[16].SetActive(false);
+            healthBarList[15].SetActive(false);
+            healthBarList[14].SetActive(false);
+            healthBarList[13].SetActive(false);
+            healthBarList[12].SetActive(false);
+            healthBarList[11].SetActive(false);
+            healthBarList[10].SetActive(false);
+            healthBarList[9].SetActive(false);
+            healthBarList[8].SetActive(false);
+            healthBarList[7].SetActive(false);
+        }
+        else if (hitPointPercent <= 0.45f) // 0.45 = 9/20
+        {
+            // disable first 12
+            healthBarList[19].SetActive(false);
+            healthBarList[18].SetActive(false);
+            healthBarList[17].SetActive(false);
+            healthBarList[16].SetActive(false);
+            healthBarList[15].SetActive(false);
+            healthBarList[14].SetActive(false);
+            healthBarList[13].SetActive(false);
+            healthBarList[12].SetActive(false);
+            healthBarList[11].SetActive(false);
+            healthBarList[10].SetActive(false);
+            healthBarList[9].SetActive(false);
+            healthBarList[8].SetActive(false);
+        }
+        else if (hitPointPercent <= 0.5f) // 0.5 = 10/20
+        {
+            //  disable first 11
+            healthBarList[19].SetActive(false);
+            healthBarList[18].SetActive(false);
+            healthBarList[17].SetActive(false);
+            healthBarList[16].SetActive(false);
+            healthBarList[15].SetActive(false);
+            healthBarList[14].SetActive(false);
+            healthBarList[13].SetActive(false);
+            healthBarList[12].SetActive(false);
+            healthBarList[11].SetActive(false);
+            healthBarList[10].SetActive(false);
+            healthBarList[9].SetActive(false);
+        }
+        else if (hitPointPercent <= 0.55f) // 0.55 = 11/20
+        {
+            // disable first 10
+            healthBarList[19].SetActive(false);
+            healthBarList[18].SetActive(false);
+            healthBarList[17].SetActive(false);
+            healthBarList[16].SetActive(false);
+            healthBarList[15].SetActive(false);
+            healthBarList[14].SetActive(false);
+            healthBarList[13].SetActive(false);
+            healthBarList[12].SetActive(false);
+            healthBarList[11].SetActive(false);
+            healthBarList[10].SetActive(false);
+        }
+        else if (hitPointPercent <= 0.6f) // 0.6 = 12/20
+        {
+            // disable first nine
+            healthBarList[19].SetActive(false);
+            healthBarList[18].SetActive(false);
+            healthBarList[17].SetActive(false);
+            healthBarList[16].SetActive(false);
+            healthBarList[15].SetActive(false);
+            healthBarList[14].SetActive(false);
+            healthBarList[13].SetActive(false);
+            healthBarList[12].SetActive(false);
+            healthBarList[11].SetActive(false);
+        }
+        else if (hitPointPercent <= 0.65f) // 0.65 = 13/20
+        {
+            // disable first eight
+            healthBarList[19].SetActive(false);
+            healthBarList[18].SetActive(false);
+            healthBarList[17].SetActive(false);
+            healthBarList[16].SetActive(false);
+            healthBarList[15].SetActive(false);
+            healthBarList[14].SetActive(false);
+            healthBarList[13].SetActive(false);
+            healthBarList[12].SetActive(false);
+        }
+        else if (hitPointPercent <= 0.7f) // 0.7 = 14/20
+        {
+            // disable first seven
+            healthBarList[19].SetActive(false);
+            healthBarList[18].SetActive(false);
+            healthBarList[17].SetActive(false);
+            healthBarList[16].SetActive(false);
+            healthBarList[15].SetActive(false);
+            healthBarList[14].SetActive(false);
+            healthBarList[13].SetActive(false);
+        }
+        else if (hitPointPercent <= 0.75f) // 0.75 = 15/20
+        {
+            // disable first six
+            healthBarList[19].SetActive(false);
+            healthBarList[18].SetActive(false);
+            healthBarList[17].SetActive(false);
+            healthBarList[16].SetActive(false);
+            healthBarList[15].SetActive(false);
+            healthBarList[14].SetActive(false);
+        }
+        else if (hitPointPercent <= 0.8f) // 0.8 = 16/20
+        {
+            // disable first five
+            healthBarList[19].SetActive(false);
+            healthBarList[18].SetActive(false);
+            healthBarList[17].SetActive(false);
+            healthBarList[16].SetActive(false);
+            healthBarList[15].SetActive(false);
+        }
+        else if (hitPointPercent <= 0.85f) // 0.85 = 17/20
+        {
+            // disable first four
+            healthBarList[19].SetActive(false);
+            healthBarList[18].SetActive(false);
+            healthBarList[17].SetActive(false);
+            healthBarList[16].SetActive(false);
+        }
+        else if (hitPointPercent <= 0.9f) // 0.9 = 18/18
+        {
+            // disable first three
+            healthBarList[19].SetActive(false);
+            healthBarList[18].SetActive(false);
+            healthBarList[17].SetActive(false);
+        }
+        else if (hitPointPercent <= 0.95f) // 0.95 = 19/20
+        {
+            // disable first two
+            healthBarList[19].SetActive(false);
+            healthBarList[18].SetActive(false);
+        }
+        else if (hitPointPercent < 1) // 1 = 20/20
+        {
+            // disable first one
+            healthBarList[19].SetActive(false);
+        }
+    }
+
+    private void Die()
+    {
+        animator.SetBool("Dead", true);
+        // instead should probably let the guy exist, and instead just like swap to dead sprite and disable all the important stuff.
+        
     }
 
     public void MoveThroughPath(List<Vector3> CurrentPath)
@@ -82,13 +412,13 @@ public class Unit : MonoBehaviour
 
         if (pathPositions.Count > 0)
         {
-            Debug.Log("Selecting the Next position!");
+            //Debug.Log("Selecting the Next position!");
             //StartCoroutine(RotationCoroutine(pathPositions.Dequeue(), rotationDuration));
             StartCoroutine(MovementCoroutine(pathPositions.Dequeue()));
         }
         else
         {
-            Debug.Log("Movement finished!");
+            //Debug.Log("Movement finished!");
             hexGrid.GetTileAt(hexGrid.GetClosestHex(endPositione)).isOccupied = true;
             MovementFinished?.Invoke(this);
         }

@@ -10,18 +10,81 @@ public class Enemy : MonoBehaviour
 
     private Unit unit;
 
+    int damage = 10;
+
     private BFSResult range;
+
+    List<GameObject> playerUnits = new List<GameObject>();
 
     private void Awake()
     {
         unit = GetComponent<Unit>();
     }
 
-    private List<GameObject> FindAllPlayerUnits()
-    {
-        List<GameObject> playerUnits = GameObject.FindGameObjectsWithTag("Player").ToList<GameObject>();
 
-        return playerUnits;
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        Debug.Log("Something entered collider");
+        playerUnits.Add(collision.gameObject);
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        Debug.Log("Something exited collider");
+        playerUnits.Remove(collision.gameObject);
+    }
+
+    public void enemyTurn()
+    {
+
+        if (playerUnits.Count == 0)
+        {
+            Debug.Log("Enemy skips movement");
+            return;
+        }
+
+        // try attact if not, move, then try attact again?
+        Unit neigbouringPlayer = FindPlayerOnNeigboringHex();
+
+        if (neigbouringPlayer != null)
+        {
+            // attack and skib player movement
+
+            neigbouringPlayer.TakeDamage(damage);
+
+        }
+        else
+        {
+            MoveToClosestPlayer();
+
+            neigbouringPlayer = FindPlayerOnNeigboringHex();
+
+            // attack
+
+            if (neigbouringPlayer != null)
+            {
+                // attack
+                neigbouringPlayer.TakeDamage(damage);
+            }
+
+        }
+            
+    }
+
+
+    private Unit FindPlayerOnNeigboringHex()
+    {
+        foreach (GameObject playerUnit in playerUnits)
+        {
+            foreach (Vector3Int neigbour in hexGrid.GetNeighboursFor(hexGrid.GetClosestHex(transform.position)))
+            {
+                if (neigbour == hexGrid.GetClosestHex(playerUnit.transform.position))
+                {
+                    return playerUnit.GetComponent<Unit>();
+                }
+            }
+        }
+        return null;
     }
 
 
@@ -43,7 +106,7 @@ public class Enemy : MonoBehaviour
         return closestPlayer;
     }
 
-    // Finds the cheapes Neigbour of a player to get to
+    // Finds the cheapest Neigbour of a player to get to
     private Vector3Int FindCheapestNeighbourOfAPlayer(List<GameObject> playerUnits)
     {
         range = GraphSearch.BFSGetRange(hexGrid, hexGrid.GetClosestHex(transform.position), 10000);
@@ -71,15 +134,34 @@ public class Enemy : MonoBehaviour
 
 
     // should move enemy to closest player
-    public void MoveToClosestPlayer()
+    private void MoveToClosestPlayer()
     {
         //GetNeighbour to player and somehow select a nerby tile in range and move there
         // Use FindCheapestNeighbourOfAPlayer to find the position to move to, then use the movement system or something to move after finding path with graphsearch.
-        List<GameObject> playerUnits = FindAllPlayerUnits();
 
-        Vector3Int cheapesNeigbour = FindCheapestNeighbourOfAPlayer(playerUnits);
 
-        List<Vector3Int> path = range.GetPathTo(cheapesNeigbour);
+        Vector3Int cheapestNeigbour = FindCheapestNeighbourOfAPlayer(playerUnits);
+
+
+        // not have infinite  movement
+
+        List<Vector3Int> fullPath = range.GetPathTo(cheapestNeigbour);
+
+        int costSoFar = 0;
+
+        List<Vector3Int> path = new List<Vector3Int>();
+        foreach (Vector3Int hex in fullPath)
+        {
+            costSoFar += hexGrid.GetTileAt(hex).GetCost();
+            if (costSoFar <= unit.currentMovementPoints)
+            {
+                path.Add(hex);
+            }
+            else
+            {
+                break; // Wow i aktually tried to optimise code for once in my in my life
+            }
+        }
 
         unit.MoveThroughPath(path.Select(pos => hexGrid.GetTileAt(pos).transform.position).ToList());
 

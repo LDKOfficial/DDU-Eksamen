@@ -17,7 +17,7 @@ public class EnemyController : MonoBehaviour
     {
         foreach (Enemy enemy in Enemies)
         {
-            enemy.MoveToClosestPlayer();
+            enemy.enemyTurn();
         }
     }
 

@@ -10,7 +10,7 @@ public class MovementSystem : MonoBehaviour
 
     public void HideRange(HexGrid hexGrid)
     {
-            Debug.Log("Hello you shouldnt be here");
+            //Debug.Log("Hello you shouldnt be here");
             foreach (Vector3Int hexPosition in movementRange.GetRangePositions())
             {
                 hexGrid.GetTileAt(hexPosition).highlight.ToggleValidSelectionHighlight(false);
@@ -52,7 +52,7 @@ public class MovementSystem : MonoBehaviour
 
     public void MoveUnit(Unit selectedUnit, HexGrid hexGrid)
     {
-        Debug.Log("Moving unit " + selectedUnit.name);
+        //Debug.Log("Moving unit " + selectedUnit.name);
 
         foreach (Vector3Int position in currentPath)
         {
