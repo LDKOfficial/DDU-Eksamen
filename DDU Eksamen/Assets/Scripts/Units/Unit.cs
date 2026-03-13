@@ -34,6 +34,8 @@ public class Unit : MonoBehaviour
     [SerializeField]
     private Animator animator;
 
+    private bool isAlive = true;
+
     public void Start()
     {
         currentMovementPoints = MaxMovementPoints;
@@ -58,309 +60,313 @@ public class Unit : MonoBehaviour
             health.SetActive(true);
         }
 
-        if (hitPointPercent <= 0f) // 0 = 0/20
+        if (isAlive)
         {
-            Die();
-        }
-        else if (hitPointPercent <= 0.05f) // 0.05 = 1/20
-        {
-            // disable all
-            healthBarList[19].SetActive(false);
-            healthBarList[18].SetActive(false);
-            healthBarList[17].SetActive(false);
-            healthBarList[16].SetActive(false);
-            healthBarList[15].SetActive(false);
-            healthBarList[14].SetActive(false);
-            healthBarList[13].SetActive(false);
-            healthBarList[12].SetActive(false);
-            healthBarList[11].SetActive(false);
-            healthBarList[10].SetActive(false);
-            healthBarList[9].SetActive(false);
-            healthBarList[8].SetActive(false);
-            healthBarList[7].SetActive(false);
-            healthBarList[6].SetActive(false);
-            healthBarList[5].SetActive(false);
-            healthBarList[4].SetActive(false);
-            healthBarList[3].SetActive(false);
-            healthBarList[2].SetActive(false);
-            healthBarList[1].SetActive(false);
-            healthBarList[0].SetActive(false);
+            if (hitPointPercent <= 0f) // 0 = 0/20
+            {
+                Die();
+            }
+            else if (hitPointPercent <= 0.05f) // 0.05 = 1/20
+            {
+                // disable all
+                healthBarList[19].SetActive(false);
+                healthBarList[18].SetActive(false);
+                healthBarList[17].SetActive(false);
+                healthBarList[16].SetActive(false);
+                healthBarList[15].SetActive(false);
+                healthBarList[14].SetActive(false);
+                healthBarList[13].SetActive(false);
+                healthBarList[12].SetActive(false);
+                healthBarList[11].SetActive(false);
+                healthBarList[10].SetActive(false);
+                healthBarList[9].SetActive(false);
+                healthBarList[8].SetActive(false);
+                healthBarList[7].SetActive(false);
+                healthBarList[6].SetActive(false);
+                healthBarList[5].SetActive(false);
+                healthBarList[4].SetActive(false);
+                healthBarList[3].SetActive(false);
+                healthBarList[2].SetActive(false);
+                healthBarList[1].SetActive(false);
+                healthBarList[0].SetActive(false);
 
-        }
-        else if (hitPointPercent <= 0.1f) // 0.1 = 2/20
-        {
-            // disable first 19
-            healthBarList[19].SetActive(false);
-            healthBarList[18].SetActive(false);
-            healthBarList[17].SetActive(false);
-            healthBarList[16].SetActive(false);
-            healthBarList[15].SetActive(false);
-            healthBarList[14].SetActive(false);
-            healthBarList[13].SetActive(false);
-            healthBarList[12].SetActive(false);
-            healthBarList[11].SetActive(false);
-            healthBarList[10].SetActive(false);
-            healthBarList[9].SetActive(false);
-            healthBarList[8].SetActive(false);
-            healthBarList[7].SetActive(false);
-            healthBarList[6].SetActive(false);
-            healthBarList[5].SetActive(false);
-            healthBarList[4].SetActive(false);
-            healthBarList[3].SetActive(false);
-            healthBarList[2].SetActive(false);
-            healthBarList[1].SetActive(false);
-        }
-        else if (hitPointPercent <= 0.15f) // 0.15 = 3/20
-        {
-            // disable first 18
-            healthBarList[19].SetActive(false);
-            healthBarList[18].SetActive(false);
-            healthBarList[17].SetActive(false);
-            healthBarList[16].SetActive(false);
-            healthBarList[15].SetActive(false);
-            healthBarList[14].SetActive(false);
-            healthBarList[13].SetActive(false);
-            healthBarList[12].SetActive(false);
-            healthBarList[11].SetActive(false);
-            healthBarList[10].SetActive(false);
-            healthBarList[9].SetActive(false);
-            healthBarList[8].SetActive(false);
-            healthBarList[7].SetActive(false);
-            healthBarList[6].SetActive(false);
-            healthBarList[5].SetActive(false);
-            healthBarList[4].SetActive(false);
-            healthBarList[3].SetActive(false);
-            healthBarList[2].SetActive(false);
-        }
-        else if (hitPointPercent <= 0.2f) // 0.2 = 4/20
-        {
-            // disable first 17
-            healthBarList[19].SetActive(false);
-            healthBarList[18].SetActive(false);
-            healthBarList[17].SetActive(false);
-            healthBarList[16].SetActive(false);
-            healthBarList[15].SetActive(false);
-            healthBarList[14].SetActive(false);
-            healthBarList[13].SetActive(false);
-            healthBarList[12].SetActive(false);
-            healthBarList[11].SetActive(false);
-            healthBarList[10].SetActive(false);
-            healthBarList[9].SetActive(false);
-            healthBarList[8].SetActive(false);
-            healthBarList[7].SetActive(false);
-            healthBarList[6].SetActive(false);
-            healthBarList[5].SetActive(false);
-            healthBarList[4].SetActive(false);
-            healthBarList[3].SetActive(false);
-        }
-        else if (hitPointPercent <= 0.25f) // 0.25 = 5/20
-        {
-            // disable first 16
-            healthBarList[19].SetActive(false);
-            healthBarList[18].SetActive(false);
-            healthBarList[17].SetActive(false);
-            healthBarList[16].SetActive(false);
-            healthBarList[15].SetActive(false);
-            healthBarList[14].SetActive(false);
-            healthBarList[13].SetActive(false);
-            healthBarList[12].SetActive(false);
-            healthBarList[11].SetActive(false);
-            healthBarList[10].SetActive(false);
-            healthBarList[9].SetActive(false);
-            healthBarList[8].SetActive(false);
-            healthBarList[7].SetActive(false);
-            healthBarList[6].SetActive(false);
-            healthBarList[5].SetActive(false);
-            healthBarList[4].SetActive(false);
-        }
-        else if (hitPointPercent <= 0.3f) // 0.3 = 6/20
-        {
-            // disable first 15
-            healthBarList[19].SetActive(false);
-            healthBarList[18].SetActive(false);
-            healthBarList[17].SetActive(false);
-            healthBarList[16].SetActive(false);
-            healthBarList[15].SetActive(false);
-            healthBarList[14].SetActive(false);
-            healthBarList[13].SetActive(false);
-            healthBarList[12].SetActive(false);
-            healthBarList[11].SetActive(false);
-            healthBarList[10].SetActive(false);
-            healthBarList[9].SetActive(false);
-            healthBarList[8].SetActive(false);
-            healthBarList[7].SetActive(false);
-            healthBarList[6].SetActive(false);
-            healthBarList[5].SetActive(false);
-        }
-        else if (hitPointPercent <= 0.35f) // 0.35 = 7/20
-        {
-            // disable first 14
-            healthBarList[19].SetActive(false);
-            healthBarList[18].SetActive(false);
-            healthBarList[17].SetActive(false);
-            healthBarList[16].SetActive(false);
-            healthBarList[15].SetActive(false);
-            healthBarList[14].SetActive(false);
-            healthBarList[13].SetActive(false);
-            healthBarList[12].SetActive(false);
-            healthBarList[11].SetActive(false);
-            healthBarList[10].SetActive(false);
-            healthBarList[9].SetActive(false);
-            healthBarList[8].SetActive(false);
-            healthBarList[7].SetActive(false);
-            healthBarList[6].SetActive(false);
-        }
-        else if (hitPointPercent <= 0.4f) // 0.4 = 8/20
-        {
-            // disable first 13
-            healthBarList[19].SetActive(false);
-            healthBarList[18].SetActive(false);
-            healthBarList[17].SetActive(false);
-            healthBarList[16].SetActive(false);
-            healthBarList[15].SetActive(false);
-            healthBarList[14].SetActive(false);
-            healthBarList[13].SetActive(false);
-            healthBarList[12].SetActive(false);
-            healthBarList[11].SetActive(false);
-            healthBarList[10].SetActive(false);
-            healthBarList[9].SetActive(false);
-            healthBarList[8].SetActive(false);
-            healthBarList[7].SetActive(false);
-        }
-        else if (hitPointPercent <= 0.45f) // 0.45 = 9/20
-        {
-            // disable first 12
-            healthBarList[19].SetActive(false);
-            healthBarList[18].SetActive(false);
-            healthBarList[17].SetActive(false);
-            healthBarList[16].SetActive(false);
-            healthBarList[15].SetActive(false);
-            healthBarList[14].SetActive(false);
-            healthBarList[13].SetActive(false);
-            healthBarList[12].SetActive(false);
-            healthBarList[11].SetActive(false);
-            healthBarList[10].SetActive(false);
-            healthBarList[9].SetActive(false);
-            healthBarList[8].SetActive(false);
-        }
-        else if (hitPointPercent <= 0.5f) // 0.5 = 10/20
-        {
-            //  disable first 11
-            healthBarList[19].SetActive(false);
-            healthBarList[18].SetActive(false);
-            healthBarList[17].SetActive(false);
-            healthBarList[16].SetActive(false);
-            healthBarList[15].SetActive(false);
-            healthBarList[14].SetActive(false);
-            healthBarList[13].SetActive(false);
-            healthBarList[12].SetActive(false);
-            healthBarList[11].SetActive(false);
-            healthBarList[10].SetActive(false);
-            healthBarList[9].SetActive(false);
-        }
-        else if (hitPointPercent <= 0.55f) // 0.55 = 11/20
-        {
-            // disable first 10
-            healthBarList[19].SetActive(false);
-            healthBarList[18].SetActive(false);
-            healthBarList[17].SetActive(false);
-            healthBarList[16].SetActive(false);
-            healthBarList[15].SetActive(false);
-            healthBarList[14].SetActive(false);
-            healthBarList[13].SetActive(false);
-            healthBarList[12].SetActive(false);
-            healthBarList[11].SetActive(false);
-            healthBarList[10].SetActive(false);
-        }
-        else if (hitPointPercent <= 0.6f) // 0.6 = 12/20
-        {
-            // disable first nine
-            healthBarList[19].SetActive(false);
-            healthBarList[18].SetActive(false);
-            healthBarList[17].SetActive(false);
-            healthBarList[16].SetActive(false);
-            healthBarList[15].SetActive(false);
-            healthBarList[14].SetActive(false);
-            healthBarList[13].SetActive(false);
-            healthBarList[12].SetActive(false);
-            healthBarList[11].SetActive(false);
-        }
-        else if (hitPointPercent <= 0.65f) // 0.65 = 13/20
-        {
-            // disable first eight
-            healthBarList[19].SetActive(false);
-            healthBarList[18].SetActive(false);
-            healthBarList[17].SetActive(false);
-            healthBarList[16].SetActive(false);
-            healthBarList[15].SetActive(false);
-            healthBarList[14].SetActive(false);
-            healthBarList[13].SetActive(false);
-            healthBarList[12].SetActive(false);
-        }
-        else if (hitPointPercent <= 0.7f) // 0.7 = 14/20
-        {
-            // disable first seven
-            healthBarList[19].SetActive(false);
-            healthBarList[18].SetActive(false);
-            healthBarList[17].SetActive(false);
-            healthBarList[16].SetActive(false);
-            healthBarList[15].SetActive(false);
-            healthBarList[14].SetActive(false);
-            healthBarList[13].SetActive(false);
-        }
-        else if (hitPointPercent <= 0.75f) // 0.75 = 15/20
-        {
-            // disable first six
-            healthBarList[19].SetActive(false);
-            healthBarList[18].SetActive(false);
-            healthBarList[17].SetActive(false);
-            healthBarList[16].SetActive(false);
-            healthBarList[15].SetActive(false);
-            healthBarList[14].SetActive(false);
-        }
-        else if (hitPointPercent <= 0.8f) // 0.8 = 16/20
-        {
-            // disable first five
-            healthBarList[19].SetActive(false);
-            healthBarList[18].SetActive(false);
-            healthBarList[17].SetActive(false);
-            healthBarList[16].SetActive(false);
-            healthBarList[15].SetActive(false);
-        }
-        else if (hitPointPercent <= 0.85f) // 0.85 = 17/20
-        {
-            // disable first four
-            healthBarList[19].SetActive(false);
-            healthBarList[18].SetActive(false);
-            healthBarList[17].SetActive(false);
-            healthBarList[16].SetActive(false);
-        }
-        else if (hitPointPercent <= 0.9f) // 0.9 = 18/18
-        {
-            // disable first three
-            healthBarList[19].SetActive(false);
-            healthBarList[18].SetActive(false);
-            healthBarList[17].SetActive(false);
-        }
-        else if (hitPointPercent <= 0.95f) // 0.95 = 19/20
-        {
-            // disable first two
-            healthBarList[19].SetActive(false);
-            healthBarList[18].SetActive(false);
-        }
-        else if (hitPointPercent < 1) // 1 = 20/20
-        {
-            // disable first one
-            healthBarList[19].SetActive(false);
-        }
-        else
-        {
-            // alle er tænt
+            }
+            else if (hitPointPercent <= 0.1f) // 0.1 = 2/20
+            {
+                // disable first 19
+                healthBarList[19].SetActive(false);
+                healthBarList[18].SetActive(false);
+                healthBarList[17].SetActive(false);
+                healthBarList[16].SetActive(false);
+                healthBarList[15].SetActive(false);
+                healthBarList[14].SetActive(false);
+                healthBarList[13].SetActive(false);
+                healthBarList[12].SetActive(false);
+                healthBarList[11].SetActive(false);
+                healthBarList[10].SetActive(false);
+                healthBarList[9].SetActive(false);
+                healthBarList[8].SetActive(false);
+                healthBarList[7].SetActive(false);
+                healthBarList[6].SetActive(false);
+                healthBarList[5].SetActive(false);
+                healthBarList[4].SetActive(false);
+                healthBarList[3].SetActive(false);
+                healthBarList[2].SetActive(false);
+                healthBarList[1].SetActive(false);
+            }
+            else if (hitPointPercent <= 0.15f) // 0.15 = 3/20
+            {
+                // disable first 18
+                healthBarList[19].SetActive(false);
+                healthBarList[18].SetActive(false);
+                healthBarList[17].SetActive(false);
+                healthBarList[16].SetActive(false);
+                healthBarList[15].SetActive(false);
+                healthBarList[14].SetActive(false);
+                healthBarList[13].SetActive(false);
+                healthBarList[12].SetActive(false);
+                healthBarList[11].SetActive(false);
+                healthBarList[10].SetActive(false);
+                healthBarList[9].SetActive(false);
+                healthBarList[8].SetActive(false);
+                healthBarList[7].SetActive(false);
+                healthBarList[6].SetActive(false);
+                healthBarList[5].SetActive(false);
+                healthBarList[4].SetActive(false);
+                healthBarList[3].SetActive(false);
+                healthBarList[2].SetActive(false);
+            }
+            else if (hitPointPercent <= 0.2f) // 0.2 = 4/20
+            {
+                // disable first 17
+                healthBarList[19].SetActive(false);
+                healthBarList[18].SetActive(false);
+                healthBarList[17].SetActive(false);
+                healthBarList[16].SetActive(false);
+                healthBarList[15].SetActive(false);
+                healthBarList[14].SetActive(false);
+                healthBarList[13].SetActive(false);
+                healthBarList[12].SetActive(false);
+                healthBarList[11].SetActive(false);
+                healthBarList[10].SetActive(false);
+                healthBarList[9].SetActive(false);
+                healthBarList[8].SetActive(false);
+                healthBarList[7].SetActive(false);
+                healthBarList[6].SetActive(false);
+                healthBarList[5].SetActive(false);
+                healthBarList[4].SetActive(false);
+                healthBarList[3].SetActive(false);
+            }
+            else if (hitPointPercent <= 0.25f) // 0.25 = 5/20
+            {
+                // disable first 16
+                healthBarList[19].SetActive(false);
+                healthBarList[18].SetActive(false);
+                healthBarList[17].SetActive(false);
+                healthBarList[16].SetActive(false);
+                healthBarList[15].SetActive(false);
+                healthBarList[14].SetActive(false);
+                healthBarList[13].SetActive(false);
+                healthBarList[12].SetActive(false);
+                healthBarList[11].SetActive(false);
+                healthBarList[10].SetActive(false);
+                healthBarList[9].SetActive(false);
+                healthBarList[8].SetActive(false);
+                healthBarList[7].SetActive(false);
+                healthBarList[6].SetActive(false);
+                healthBarList[5].SetActive(false);
+                healthBarList[4].SetActive(false);
+            }
+            else if (hitPointPercent <= 0.3f) // 0.3 = 6/20
+            {
+                // disable first 15
+                healthBarList[19].SetActive(false);
+                healthBarList[18].SetActive(false);
+                healthBarList[17].SetActive(false);
+                healthBarList[16].SetActive(false);
+                healthBarList[15].SetActive(false);
+                healthBarList[14].SetActive(false);
+                healthBarList[13].SetActive(false);
+                healthBarList[12].SetActive(false);
+                healthBarList[11].SetActive(false);
+                healthBarList[10].SetActive(false);
+                healthBarList[9].SetActive(false);
+                healthBarList[8].SetActive(false);
+                healthBarList[7].SetActive(false);
+                healthBarList[6].SetActive(false);
+                healthBarList[5].SetActive(false);
+            }
+            else if (hitPointPercent <= 0.35f) // 0.35 = 7/20
+            {
+                // disable first 14
+                healthBarList[19].SetActive(false);
+                healthBarList[18].SetActive(false);
+                healthBarList[17].SetActive(false);
+                healthBarList[16].SetActive(false);
+                healthBarList[15].SetActive(false);
+                healthBarList[14].SetActive(false);
+                healthBarList[13].SetActive(false);
+                healthBarList[12].SetActive(false);
+                healthBarList[11].SetActive(false);
+                healthBarList[10].SetActive(false);
+                healthBarList[9].SetActive(false);
+                healthBarList[8].SetActive(false);
+                healthBarList[7].SetActive(false);
+                healthBarList[6].SetActive(false);
+            }
+            else if (hitPointPercent <= 0.4f) // 0.4 = 8/20
+            {
+                // disable first 13
+                healthBarList[19].SetActive(false);
+                healthBarList[18].SetActive(false);
+                healthBarList[17].SetActive(false);
+                healthBarList[16].SetActive(false);
+                healthBarList[15].SetActive(false);
+                healthBarList[14].SetActive(false);
+                healthBarList[13].SetActive(false);
+                healthBarList[12].SetActive(false);
+                healthBarList[11].SetActive(false);
+                healthBarList[10].SetActive(false);
+                healthBarList[9].SetActive(false);
+                healthBarList[8].SetActive(false);
+                healthBarList[7].SetActive(false);
+            }
+            else if (hitPointPercent <= 0.45f) // 0.45 = 9/20
+            {
+                // disable first 12
+                healthBarList[19].SetActive(false);
+                healthBarList[18].SetActive(false);
+                healthBarList[17].SetActive(false);
+                healthBarList[16].SetActive(false);
+                healthBarList[15].SetActive(false);
+                healthBarList[14].SetActive(false);
+                healthBarList[13].SetActive(false);
+                healthBarList[12].SetActive(false);
+                healthBarList[11].SetActive(false);
+                healthBarList[10].SetActive(false);
+                healthBarList[9].SetActive(false);
+                healthBarList[8].SetActive(false);
+            }
+            else if (hitPointPercent <= 0.5f) // 0.5 = 10/20
+            {
+                //  disable first 11
+                healthBarList[19].SetActive(false);
+                healthBarList[18].SetActive(false);
+                healthBarList[17].SetActive(false);
+                healthBarList[16].SetActive(false);
+                healthBarList[15].SetActive(false);
+                healthBarList[14].SetActive(false);
+                healthBarList[13].SetActive(false);
+                healthBarList[12].SetActive(false);
+                healthBarList[11].SetActive(false);
+                healthBarList[10].SetActive(false);
+                healthBarList[9].SetActive(false);
+            }
+            else if (hitPointPercent <= 0.55f) // 0.55 = 11/20
+            {
+                // disable first 10
+                healthBarList[19].SetActive(false);
+                healthBarList[18].SetActive(false);
+                healthBarList[17].SetActive(false);
+                healthBarList[16].SetActive(false);
+                healthBarList[15].SetActive(false);
+                healthBarList[14].SetActive(false);
+                healthBarList[13].SetActive(false);
+                healthBarList[12].SetActive(false);
+                healthBarList[11].SetActive(false);
+                healthBarList[10].SetActive(false);
+            }
+            else if (hitPointPercent <= 0.6f) // 0.6 = 12/20
+            {
+                // disable first nine
+                healthBarList[19].SetActive(false);
+                healthBarList[18].SetActive(false);
+                healthBarList[17].SetActive(false);
+                healthBarList[16].SetActive(false);
+                healthBarList[15].SetActive(false);
+                healthBarList[14].SetActive(false);
+                healthBarList[13].SetActive(false);
+                healthBarList[12].SetActive(false);
+                healthBarList[11].SetActive(false);
+            }
+            else if (hitPointPercent <= 0.65f) // 0.65 = 13/20
+            {
+                // disable first eight
+                healthBarList[19].SetActive(false);
+                healthBarList[18].SetActive(false);
+                healthBarList[17].SetActive(false);
+                healthBarList[16].SetActive(false);
+                healthBarList[15].SetActive(false);
+                healthBarList[14].SetActive(false);
+                healthBarList[13].SetActive(false);
+                healthBarList[12].SetActive(false);
+            }
+            else if (hitPointPercent <= 0.7f) // 0.7 = 14/20
+            {
+                // disable first seven
+                healthBarList[19].SetActive(false);
+                healthBarList[18].SetActive(false);
+                healthBarList[17].SetActive(false);
+                healthBarList[16].SetActive(false);
+                healthBarList[15].SetActive(false);
+                healthBarList[14].SetActive(false);
+                healthBarList[13].SetActive(false);
+            }
+            else if (hitPointPercent <= 0.75f) // 0.75 = 15/20
+            {
+                // disable first six
+                healthBarList[19].SetActive(false);
+                healthBarList[18].SetActive(false);
+                healthBarList[17].SetActive(false);
+                healthBarList[16].SetActive(false);
+                healthBarList[15].SetActive(false);
+                healthBarList[14].SetActive(false);
+            }
+            else if (hitPointPercent <= 0.8f) // 0.8 = 16/20
+            {
+                // disable first five
+                healthBarList[19].SetActive(false);
+                healthBarList[18].SetActive(false);
+                healthBarList[17].SetActive(false);
+                healthBarList[16].SetActive(false);
+                healthBarList[15].SetActive(false);
+            }
+            else if (hitPointPercent <= 0.85f) // 0.85 = 17/20
+            {
+                // disable first four
+                healthBarList[19].SetActive(false);
+                healthBarList[18].SetActive(false);
+                healthBarList[17].SetActive(false);
+                healthBarList[16].SetActive(false);
+            }
+            else if (hitPointPercent <= 0.9f) // 0.9 = 18/18
+            {
+                // disable first three
+                healthBarList[19].SetActive(false);
+                healthBarList[18].SetActive(false);
+                healthBarList[17].SetActive(false);
+            }
+            else if (hitPointPercent <= 0.95f) // 0.95 = 19/20
+            {
+                // disable first two
+                healthBarList[19].SetActive(false);
+                healthBarList[18].SetActive(false);
+            }
+            else if (hitPointPercent < 1) // 1 = 20/20
+            {
+                // disable first one
+                healthBarList[19].SetActive(false);
+            }
+            else
+            {
+                // alle er tænt
+            }
         }
     }
 
     private void Die()
     {
+        isAlive = false;
         highlight.enabled = false;
         this.enabled = false;
         this.gameObject.GetComponent<Collider2D>().enabled = false;
