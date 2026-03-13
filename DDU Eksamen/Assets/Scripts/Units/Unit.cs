@@ -17,7 +17,7 @@ public class Unit : MonoBehaviour
 
 
     [SerializeField]
-    private float movementDuration = 1, rotationDuration = 0.3f; //rotation Duration might not be useful for us as it rotates the 3D objekt in tutorial
+    public float movementDuration = 1, rotationDuration = 0.3f; //rotation Duration might not be useful for us as it rotates the 3D objekt in tutorial
 
     [SerializeField]
     public Highlight highlight;
@@ -353,21 +353,29 @@ public class Unit : MonoBehaviour
             // disable first one
             healthBarList[19].SetActive(false);
         }
+        else
+        {
+            // alle er tænt
+        }
     }
 
     private void Die()
     {
+        highlight.enabled = false;
+        this.enabled = false;
+        this.gameObject.GetComponent<Collider2D>().enabled = false;
         animator.SetBool("Dead", true);
-        // instead should probably let the guy exist, and instead just like swap to dead sprite and disable all the important stuff.
         
     }
 
     public void MoveThroughPath(List<Vector3> CurrentPath)
     {
         hexGrid.GetTileAt(hexGrid.GetClosestHex(transform.position)).isOccupied = false;
+        hexGrid.GetTileAt(hexGrid.GetClosestHex(CurrentPath[CurrentPath.Count-1])).isOccupied = true;
         pathPositions = new Queue<Vector3>(CurrentPath);
         Vector3 firstTarget = pathPositions.Dequeue();
-        //StartCoroutine(RotationCoroutine(firstTarget, rotationDuration));
+        //StartCoroutine(RotationCoroutine(firstTarget, rotationDuration))
+        this.gameObject.GetComponent<Collider2D>().enabled = false;
         StartCoroutine(MovementCoroutine(firstTarget));
     }
 
@@ -391,10 +399,13 @@ public class Unit : MonoBehaviour
             transform.rotation = endRotation;
         }
         StartCoroutine(MovementCoroutine(endPositione));
+
+        
     }
 
     private IEnumerator MovementCoroutine(Vector3 endPositione)
     {
+        
         Vector3 startPosition = transform.position;
         endPositione.z = startPosition.z;
         float timeElapsed = 0;
@@ -419,7 +430,8 @@ public class Unit : MonoBehaviour
         else
         {
             //Debug.Log("Movement finished!");
-            hexGrid.GetTileAt(hexGrid.GetClosestHex(endPositione)).isOccupied = true;
+            //hexGrid.GetTileAt(hexGrid.GetClosestHex(endPositione)).isOccupied = true;
+            this.gameObject.GetComponent<Collider2D>().enabled = true;
             MovementFinished?.Invoke(this);
         }
     }

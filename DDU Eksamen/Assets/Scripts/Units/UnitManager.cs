@@ -16,9 +16,11 @@ public class UnitManager : MonoBehaviour
 
     public void HandleUnitSelected(GameObject unit)
     {
-        if (canMove == false)
-            return; // Does smth with turns might wanna look into it when done
 
+        Debug.Log(canMove);
+        /*if (canMove == false)
+            return; // Does smth with turns might wanna look into it when done
+        */
         Unit unitReference = unit.GetComponent<Unit>();
 
         //Debug.Log(unitReference.ToString());
@@ -41,7 +43,7 @@ public class UnitManager : MonoBehaviour
 
     public void HandleTerrainSelected(GameObject hexGo)
     {
-        if (selectedUnit == null || canMove == false)
+        if (selectedUnit == null)// || canMove == false)
             return;
 
         Hex selectedHex = hexGo.GetComponent<Hex>();

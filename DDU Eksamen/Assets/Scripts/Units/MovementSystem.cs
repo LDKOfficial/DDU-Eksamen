@@ -40,7 +40,7 @@ public class MovementSystem : MonoBehaviour
             foreach (Vector3Int hexPosition in currentPath)
             {
                 hexGrid.GetTileAt(hexPosition).highlight.ToggleSelectedHighlight(false);
-                hexGrid.GetTileAt(hexPosition).highlight.ToggleValidSelectionHighlight(false);
+                hexGrid.GetTileAt(hexPosition).highlight.ToggleValidSelectionHighlight(true);
             }
             currentPath = movementRange.GetPathTo(selectedHexPosition);
             foreach (Vector3Int hexPosition in currentPath)

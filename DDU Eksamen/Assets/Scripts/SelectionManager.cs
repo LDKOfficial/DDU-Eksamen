@@ -30,25 +30,28 @@ public class SelectionManager : MonoBehaviour
     }
 
     // called when player clicks with their mouse
-    public void HandleClick()
+    public void HandleClick(InputAction.CallbackContext context)
     {
-        // player cant move if it isnt their turn
-        if (!turnController.isPlayerTurn)
-            return;
-
-        GameObject result;
-
-        if (FindTarget(mousePosition, out result))
+        if (context.started)
         {
-            if (result.tag == "Player")
+            // player cant move if it isnt their turn
+            if (!turnController.isPlayerTurn)
+                return;
+
+            GameObject result;
+
+            if (FindTarget(mousePosition, out result))
             {
-                //Debug.Log("player event");
-                OnUnitSelected?.Invoke(result);
-            }
-            else
-            {
-                //Debug.Log("terrain event");
-                TerrainSelected?.Invoke(result);
+                if (result.tag == "Player")
+                {
+                    //Debug.Log("player event");
+                    OnUnitSelected?.Invoke(result);
+                }
+                else
+                {
+                    //Debug.Log("terrain event");
+                    TerrainSelected?.Invoke(result);
+                }
             }
         }
     }
@@ -74,16 +77,16 @@ public class SelectionManager : MonoBehaviour
         if (hit2D = Physics2D.Raycast(mainCamera.ScreenToWorldPoint(mousePosition), direction, Mathf.Infinity, selectionMaskUnit)) //dstance infinity might be a bit much
         {
             result = hit2D.collider.gameObject;
-            //Debug.Log("Game object " + hit2D.collider.gameObject);
-            //Debug.Log("overlap " + hit2D.collider.OverlapPoint(mainCamera.ScreenToWorldPoint(mousePosition)));
+            Debug.Log("Game object " + hit2D.collider.gameObject);
+            Debug.Log("overlap " + hit2D.collider.OverlapPoint(mainCamera.ScreenToWorldPoint(mousePosition)));
             return true;
         }
 
         else if (hit2D = Physics2D.Raycast(mainCamera.ScreenToWorldPoint(mousePosition), direction, Mathf.Infinity, selectionMaskTerrain)) //dstance infinity might be a bit much
         {
             result = hit2D.collider.gameObject;
-            //Debug.Log("Game object " + hit2D.collider.gameObject);
-            //Debug.Log("overlap " + hit2D.collider.OverlapPoint(mainCamera.ScreenToWorldPoint(mousePosition)));
+            Debug.Log("Game object " + hit2D.collider.gameObject);
+            Debug.Log("overlap " + hit2D.collider.OverlapPoint(mainCamera.ScreenToWorldPoint(mousePosition)));
             return true;
         }
 
