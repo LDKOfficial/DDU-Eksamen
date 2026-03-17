@@ -13,12 +13,13 @@ public class SelectionManager : MonoBehaviour
     [SerializeField]
     private TurnControler turnController;
 
-    public LayerMask selectionMaskUnit;
+    public LayerMask selectionMaskUnits;
     public LayerMask selectionMaskTerrain;
 
     private Vector3 mousePosition;
 
     public UnityEvent<GameObject> OnUnitSelected;
+    public UnityEvent<GameObject> OnEnemySelected;
     public UnityEvent<GameObject> TerrainSelected;
 
     private void Awake()
@@ -47,6 +48,11 @@ public class SelectionManager : MonoBehaviour
                     //Debug.Log("player event");
                     OnUnitSelected?.Invoke(result);
                 }
+                else if (result.tag == "Enemy")
+                {
+                    //Debug.Log("Enemy event");
+                    OnEnemySelected?.Invoke(result);
+                }
                 else
                 {
                     //Debug.Log("terrain event");
@@ -69,16 +75,17 @@ public class SelectionManager : MonoBehaviour
 
     private bool FindTarget(Vector3 mousePosition, out GameObject result)
     {
-        //RaycastHit hit;
+        Physics2D.queriesHitTriggers = false;
         RaycastHit2D hit2D;
         Ray ray = mainCamera.ScreenPointToRay(mousePosition);
         Vector2 direction = new Vector2(0f, 0f);
 
-        if (hit2D = Physics2D.Raycast(mainCamera.ScreenToWorldPoint(mousePosition), direction, Mathf.Infinity, selectionMaskUnit)) //dstance infinity might be a bit much
+        if (hit2D = Physics2D.Raycast(mainCamera.ScreenToWorldPoint(mousePosition), direction, Mathf.Infinity, selectionMaskUnits)) //dstance infinity might be a bit much
         {
             result = hit2D.collider.gameObject;
             Debug.Log("Game object " + hit2D.collider.gameObject);
             Debug.Log("overlap " + hit2D.collider.OverlapPoint(mainCamera.ScreenToWorldPoint(mousePosition)));
+            Physics.queriesHitTriggers = true;
             return true;
         }
 
@@ -87,9 +94,11 @@ public class SelectionManager : MonoBehaviour
             result = hit2D.collider.gameObject;
             Debug.Log("Game object " + hit2D.collider.gameObject);
             Debug.Log("overlap " + hit2D.collider.OverlapPoint(mainCamera.ScreenToWorldPoint(mousePosition)));
+            Physics.queriesHitTriggers = true;
             return true;
         }
 
+        Physics.queriesHitTriggers = true;
         result = null;
         return false;
     }

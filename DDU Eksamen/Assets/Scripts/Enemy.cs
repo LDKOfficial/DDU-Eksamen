@@ -6,8 +6,6 @@ using System.Collections.Generic;
 
 public class Enemy : MonoBehaviour
 {
-    public HexGrid hexGrid;
-
     private Unit unit;
 
     int damage = 10;
@@ -80,9 +78,9 @@ public class Enemy : MonoBehaviour
     {
         foreach (GameObject playerUnit in playerUnits)
         {
-            foreach (Vector3Int neigbour in hexGrid.GetNeighboursFor(hexGrid.GetClosestHex(transform.position)))
+            foreach (Vector3Int neigbour in unit.hexGrid.GetNeighboursFor(unit.hexGrid.GetClosestHex(transform.position)))
             {
-                if (neigbour == hexGrid.GetClosestHex(playerUnit.transform.position))
+                if (neigbour == unit.hexGrid.GetClosestHex(playerUnit.transform.position))
                 {
                     return playerUnit.GetComponent<Unit>();
                 }
@@ -113,16 +111,16 @@ public class Enemy : MonoBehaviour
     // Finds the cheapest Neigbour of a player to get to
     private Vector3Int FindCheapestNeighbourOfAPlayer(List<GameObject> playerUnits)
     {
-        range = GraphSearch.BFSGetRange(hexGrid, hexGrid.GetClosestHex(transform.position), 10000);
+        range = GraphSearch.BFSGetRange(unit.hexGrid, unit.hexGrid.GetClosestHex(transform.position), 10000);
 
-        Vector3Int cheapestNeigbour = hexGrid.GetClosestHex(transform.position);
+        Vector3Int cheapestNeigbour = unit.hexGrid.GetClosestHex(transform.position);
         int cheapestCost = 100000;
 
         foreach (GameObject playerUnit in playerUnits)
         {
-            foreach (Vector3Int neighbour in hexGrid.GetNeighboursFor(hexGrid.GetClosestHex(playerUnit.transform.position)))
+            foreach (Vector3Int neighbour in unit.hexGrid.GetNeighboursFor(unit.hexGrid.GetClosestHex(playerUnit.transform.position)))
             {
-                if (!hexGrid.GetTileAt(neighbour).IsObstacle() & hexGrid.GetTileAt(neighbour).isOccupied == false)
+                if (!unit.hexGrid.GetTileAt(neighbour).IsObstacle() & unit.hexGrid.GetTileAt(neighbour).isOccupied == false)
                 {
                     if (range.costSoFar[neighbour] < cheapestCost)
                     {
@@ -156,7 +154,7 @@ public class Enemy : MonoBehaviour
         List<Vector3Int> path = new List<Vector3Int>();
         foreach (Vector3Int hex in fullPath)
         {
-            costSoFar += hexGrid.GetTileAt(hex).GetCost();
+            costSoFar += unit.hexGrid.GetTileAt(hex).GetCost();
             if (costSoFar <= unit.currentMovementPoints)
             {
                 path.Add(hex);
@@ -167,7 +165,7 @@ public class Enemy : MonoBehaviour
             }
         }
 
-        unit.MoveThroughPath(path.Select(pos => hexGrid.GetTileAt(pos).transform.position).ToList());
+        unit.MoveThroughPath(path.Select(pos => unit.hexGrid.GetTileAt(pos).transform.position).ToList());
 
     }
 
@@ -175,12 +173,12 @@ public class Enemy : MonoBehaviour
     // cant see what i would use this fore tbh
     private List<Vector3Int> FindCheapestPathToPlayer(GameObject player)
     {
-        Vector3Int playerHex = hexGrid.GetClosestHex(player.transform.position);
-        range = GraphSearch.BFSGetRange(hexGrid, hexGrid.GetClosestHex(transform.position), 10000);
+        Vector3Int playerHex = unit.hexGrid.GetClosestHex(player.transform.position);
+        range = GraphSearch.BFSGetRange(unit.hexGrid, unit.hexGrid.GetClosestHex(transform.position), 10000);
         int lowestCost = 10000;
         Vector3Int closestNeighbour = new Vector3Int(10000, 10000, 10000);
 
-        foreach(Vector3Int neighbour in hexGrid.GetNeighboursFor(playerHex))
+        foreach(Vector3Int neighbour in unit.hexGrid.GetNeighboursFor(playerHex))
         {
             if (range.costSoFar[neighbour] < lowestCost)
             {

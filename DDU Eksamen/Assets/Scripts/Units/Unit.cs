@@ -15,11 +15,10 @@ public class Unit : MonoBehaviour
     public int maxHitPoints = 100;
     public int hitPoints;
 
+    public GameObject UI;
 
-    [SerializeField]
     public float movementDuration = 1, rotationDuration = 0.3f; //rotation Duration might not be useful for us as it rotates the 3D objekt in tutorial
 
-    [SerializeField]
     public Highlight highlight;
 
     private Queue<Vector3> pathPositions = new Queue<Vector3>();
@@ -440,5 +439,12 @@ public class Unit : MonoBehaviour
             this.gameObject.GetComponent<Collider2D>().enabled = true;
             MovementFinished?.Invoke(this);
         }
+    }
+
+
+
+    public void Attack(Unit enemy)
+    {
+
     }
 }
