@@ -30,7 +30,7 @@ public class MovementSystem : MonoBehaviour
 
     public void CalculateRange(Unit selectedUnit, HexGrid hexGrid)
     {
-        movementRange = GraphSearch.BFSGetRange(hexGrid, hexGrid.GetClosestHex(selectedUnit.transform.position), selectedUnit.currentMovementPoints);
+        movementRange = GraphSearch.BFSGetRange(hexGrid, hexGrid.GetClosestHex(selectedUnit.transform.position), selectedUnit.actionPoints);
     }
 
     public void ShowPath(Vector3Int selectedHexPosition, HexGrid hexGrid)
@@ -56,7 +56,7 @@ public class MovementSystem : MonoBehaviour
 
         foreach (Vector3Int position in currentPath)
         {
-            selectedUnit.currentMovementPoints -= hexGrid.GetTileAt(position).GetCost();
+            selectedUnit.UpdateActionPoints(hexGrid.GetTileAt(position).GetCost());
         }
 
         selectedUnit.MoveThroughPath(currentPath.Select(pos => hexGrid.GetTileAt(pos).transform.position).ToList());

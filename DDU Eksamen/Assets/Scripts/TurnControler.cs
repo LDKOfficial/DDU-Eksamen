@@ -54,7 +54,8 @@ public class TurnControler : MonoBehaviour
 
         foreach (GameObject unit in playerUnits)
         {
-            unit.GetComponent<Unit>().currentMovementPoints = unit.GetComponent<Unit>().MaxMovementPoints;
+            unit.GetComponent<Unit>().actionPoints = unit.GetComponent<Unit>().maxActionPoints;
+            unit.GetComponent<Unit>().UpdateActionPoints(0); // fucking hate this but it does le UI update
         }
         
         // Enabel at spilleren kan gøre ting, og reset stats som movement og actions

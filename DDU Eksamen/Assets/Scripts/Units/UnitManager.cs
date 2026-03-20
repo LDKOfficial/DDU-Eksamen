@@ -12,6 +12,8 @@ public class UnitManager : MonoBehaviour
 
     public bool canMove { get; private set; } = true;
 
+    private List<Enemy> enemiesInRange = new List<Enemy>();
+
     [SerializeField]
     private Unit selectedUnit;
     private Hex previouslySelectedHex;
@@ -32,22 +34,30 @@ public class UnitManager : MonoBehaviour
         if (CheckIfSameUnitSelected(unitReference))
             return;
 
-        //selectedUnit = unitReference;
+        if (selectedUnit != null)
+        {
+            selectedUnit.UI.SetActive(false);
+        }
+        
 
-        unitReference.UI.SetActive(true);
+        selectedUnit = unitReference;
+
+        selectedUnit.UI.SetActive(true);
         
         //PrepareUnitForMovement(unitReference);
     }
 
     private bool CheckIfSameUnitSelected(Unit unitReference)
     {
-
+        Debug.Log("Checking if same unit selected");
         // i think this tries to deselect the unit, so update to also remove other selection when ui system actually further done
         if (selectedUnit == unitReference)
         {
+            Debug.Log("Same Unit selected");
             //ClearOldMovementSelection();
             selectedUnit.UI.SetActive(false);
-
+            selectedUnit = null;
+            // should clear all selections
             // if selectedunit er i movement mode, then Clear movement selection...
             return true;
         }
@@ -73,6 +83,20 @@ public class UnitManager : MonoBehaviour
 
         // check er den en valid selection, hvis ja attack
 
+            if (enemiesInRange.Contains(enemy.GetComponent<Enemy>()))
+            {
+
+                enemy.GetComponent<Unit>().highlight.ToggleValidSelectionHighlight(false);
+                enemy.GetComponent<Unit>().highlight.ToggleSelectedHighlight(true);
+                selectedUnit.Attack(enemy.GetComponent<Unit>());
+            }
+
+            foreach (Enemy enemyInRange in enemiesInRange)
+            {
+                enemyInRange.GetComponent<Unit>().highlight.ToggleValidSelectionHighlight(false);
+            }
+
+
 
     }
 
@@ -85,13 +109,13 @@ public class UnitManager : MonoBehaviour
             Debug.Log("Clear old");
             // clear old attack selection and previous selection with some if logic
         }
-
         selectedUnit = unitReference;
-
+        Debug.Log(selectedUnit);
+        Debug.Log(selectedUnit.transform.position);
         // get neighbours
         List<Vector3Int> neigbours = hexGrid.GetNeighboursFor(hexGrid.GetClosestHex(selectedUnit.transform.position));
 
-        List<Enemy> enemiesInRange = new List<Enemy>();
+        enemiesInRange = new List<Enemy>();
 
         List<Enemy> enemies = FindObjectsByType<Enemy>(FindObjectsSortMode.None).ToList();
         // Find which neigbours have enemies
@@ -109,25 +133,25 @@ public class UnitManager : MonoBehaviour
             }
         }
 
+        // highlight enemies
         foreach (Enemy enemy in enemiesInRange)
         {
             enemy.GetComponent<Unit>().highlight.ToggleValidSelectionHighlight(true);
         }
 
-        // highlight enemies
+        
     }
 
-    public void PrepareUnitForMovement(Unit unitReference)
+    public void PrepareUnitForMovement() 
     {
-        
-        if (selectedUnit != null)
+        // also clear previous state with if logic after some check of what the fuck the previous state was
+        if (selectedUnit != null & selectedUnit.haveMoved)
         {
             Debug.Log("Clear old");
             ClearOldMovementSelection(); 
-            // also clear previous state with if logic
         }
 
-        selectedUnit = unitReference;
+        
        
         selectedUnit.highlight.ToggleSelectedHighlight(true);
         movementSystem.ShowRange(selectedUnit, hexGrid);
@@ -168,7 +192,7 @@ public class UnitManager : MonoBehaviour
         }
         return false;
     }
-
+    
     private bool HandleHexOutOfRange(Vector3Int hexPosition)
     {
         if (movementSystem.IsHexInRange(hexPosition) == false)

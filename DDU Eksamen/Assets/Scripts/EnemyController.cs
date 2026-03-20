@@ -8,9 +8,8 @@ public class EnemyController : MonoBehaviour
 {
     private List<Enemy> Enemies;
 
-    private float time = 0f;
 
-    private bool activateTimer = false;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -20,43 +19,27 @@ public class EnemyController : MonoBehaviour
 
     public void EnemyTurn()
     {
-        activateTimer = true;
+        List<Enemy> enemiesToRemove = new List<Enemy>();
 
         Debug.Log("Enemy turn in enemy controller");
         foreach (Enemy enemy in Enemies)
-        {
-            time = 0f;
-            StartCoroutine(Timer());
-
-            Debug.Log("Coroutine started");
-
-            Debug.Log(enemy.gameObject.GetComponent<Unit>().movementDuration);
-            /*
-            while (time < enemy.gameObject.GetComponent<Unit>().movementDuration)
+        {   
+            if (!enemy.enabled)
             {
-                Debug.Log("Inside While loop");
-                Debug.Log($"Time until next enemy turn: {time}/{enemy.gameObject.GetComponent<Unit>().movementDuration}");
+                enemiesToRemove.Add(enemy);
             }
-            */
-            
-            
-            Debug.Log("Enemy Turn");
-            
-            enemy.enemyTurn();
+            else
+            {
+                Debug.Log("Enemy Turn");
+                enemy.enemyTurn();
+            }
         }
-        activateTimer = false;
-    }
 
-    private IEnumerator Timer()
-    {
-        
-        while (time < 10f)
+        foreach (Enemy enemy in enemiesToRemove)
         {
-            time += Time.deltaTime;
-            //Debug.Log(time);
-            yield return null;
+            Enemies.Remove(enemy);
         }
-        yield return null;
+
     }
 
 }

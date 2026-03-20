@@ -155,7 +155,7 @@ public class Enemy : MonoBehaviour
         foreach (Vector3Int hex in fullPath)
         {
             costSoFar += unit.hexGrid.GetTileAt(hex).GetCost();
-            if (costSoFar <= unit.currentMovementPoints)
+            if (costSoFar <= unit.actionPoints)
             {
                 path.Add(hex);
             }

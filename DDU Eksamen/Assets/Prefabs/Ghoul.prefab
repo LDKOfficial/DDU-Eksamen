@@ -80,8 +80,8 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_MaskInteraction: 0
+  m_SortingOrder: 1001
+  m_MaskInteraction: 1
   m_Sprite: {fileID: 21300000, guid: 4bb7deea237f8e8458f9a3b50d340401, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -231,7 +231,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1001
   m_MaskInteraction: 1
   m_Sprite: {fileID: 21300000, guid: 428543e9f1cd5c341ba0eeec7bc290c5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -773,6 +773,7 @@ GameObject:
   - component: {fileID: 7035253870427477484}
   - component: {fileID: 8630360026235429578}
   - component: {fileID: 3448884258984247063}
+  - component: {fileID: 6734561191142678579}
   m_Layer: 8
   m_Name: Ghoul
   m_TagString: Enemy
@@ -868,15 +869,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72f8f012ea2551a45a424e4fbbecb1d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Unit
-  MaxMovementPoints: 20
-  currentMovementPoints: 0
+  maxActionPoints: 6
+  actionPoints: 0
   maxHitPoints: 100
   hitPoints: 20
-  UI: {fileID: 0}
+  damage: 20
+  attackCost: 5
+  hexGrid: {fileID: 0}
   movementDuration: 0.3
   rotationDuration: 0.3
+  UI: {fileID: 0}
+  attackCostDisplay: {fileID: 0}
+  actionPointBarList: []
   highlight: {fileID: 3770257931556059740}
-  hexGrid: {fileID: 0}
   healthBarList:
   - {fileID: 8006965710623262086}
   - {fileID: 4082633218361122595}
@@ -898,7 +903,8 @@ MonoBehaviour:
   - {fileID: 3380079865949542740}
   - {fileID: 1234135704024511330}
   - {fileID: 6679731304681979904}
-  animator: {fileID: 0}
+  animator: {fileID: 6734561191142678579}
+  haveMoved: 0
 --- !u!114 &3770257931556059740
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1034,6 +1040,28 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!95 &6734561191142678579
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3134541446182005704}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 19669542a7870e042ad56265e10bd48b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &3380079865949542740
 GameObject:
   m_ObjectHideFlags: 0
@@ -1625,7 +1653,7 @@ Transform:
   m_GameObject: {fileID: 5494513450465079680}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 10.5, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
