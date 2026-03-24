@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: a7959ffb5babe644baa54139201f0890
+guid: f8e2a0e1c7e648346bf2fcc00c1ddde4
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -1724915587074424940
-    second: AngrebMenuDark_0
+      213: 5415318935665513673
+    second: MovementKnap_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -75,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -100,7 +100,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: AngrebMenuDark_0
+      name: MovementKnap_0
       rect:
         serializedVersion: 2
         x: 0
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 49ff4ec996edf08e0800000000000000
-      internalID: -1724915587074424940
+      spriteID: 9c41ac161e3172b40800000000000000
+      internalID: 5415318935665513673
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      AngrebMenuDark_0: -1724915587074424940
+      MovementKnap_0: 5415318935665513673
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

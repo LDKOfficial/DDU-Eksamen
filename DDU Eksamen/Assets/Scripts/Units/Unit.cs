@@ -42,15 +42,12 @@ public class Unit : MonoBehaviour
     [SerializeField]
     private List<GameObject> healthBarList = new List<GameObject>();
 
-
+    [SerializeField]
+    private TextMeshProUGUI healthCounter;
 
     private Queue<Vector3> pathPositions = new Queue<Vector3>();
 
     public event Action<Unit> MovementFinished;
-
-    
-
-
 
     [SerializeField]
     private Animator animator;
@@ -66,6 +63,15 @@ public class Unit : MonoBehaviour
         actionPoints = maxActionPoints;
         hexGrid = FindFirstObjectByType<HexGrid>();
         hexGrid.GetTileAt(hexGrid.GetClosestHex(transform.position)).isOccupied = true;
+
+        if (healthCounter != null)
+        {
+            healthCounter.text =
+                $"HP:" +
+                $"\n{hitPoints}" +
+                $"\n-----" +
+                $"\n{maxHitPoints}";
+        }
     }
 
     public void TakeDamage(int damage)
@@ -84,7 +90,12 @@ public class Unit : MonoBehaviour
 
         if (isAlive)
         {
-            if (hitPoints <= 0)
+            if (hitPoints < 0)
+            {
+                hitPoints = 0;
+            }
+
+            if (hitPoints == 0)
             {
                 Die();
             }
@@ -103,7 +114,14 @@ public class Unit : MonoBehaviour
                 }
             }
 
-
+            if (healthCounter != null)
+            {
+                healthCounter.text =
+                    $"HP:" +
+                    $"\n{hitPoints}" +
+                    $"\n-----" +
+                    $"\n{maxHitPoints}";
+            }
         }
     }
 

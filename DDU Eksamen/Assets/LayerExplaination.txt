@@ -1,0 +1,10 @@
+Layers:
+0 = Hex grid
+1xx = Hex grid highligt
+2xx = Units
+3xx = Unit highlight
+4xx = UI
+Tutorial
+- 403 = below
+- 404 = gray out
+- 405 = above
