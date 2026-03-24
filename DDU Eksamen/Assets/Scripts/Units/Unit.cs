@@ -64,6 +64,7 @@ public class Unit : MonoBehaviour
     {
         hitPoints = maxHitPoints;
         actionPoints = maxActionPoints;
+        hexGrid = FindFirstObjectByType<HexGrid>();
         hexGrid.GetTileAt(hexGrid.GetClosestHex(transform.position)).isOccupied = true;
     }
 

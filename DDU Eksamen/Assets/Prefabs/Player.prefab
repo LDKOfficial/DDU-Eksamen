@@ -1692,7 +1692,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &940813791414694928
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3464,7 +3464,7 @@ MonoBehaviour:
   maxHitPoints: 100
   hitPoints: 100
   damage: 20
-  attackCost: 5
+  attackCost: 3
   hexGrid: {fileID: 0}
   movementDuration: 0.3
   rotationDuration: 0.3
