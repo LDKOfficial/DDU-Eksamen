@@ -83,8 +83,8 @@ public class SelectionManager : MonoBehaviour
         if (hit2D = Physics2D.Raycast(mainCamera.ScreenToWorldPoint(mousePosition), direction, Mathf.Infinity, selectionMaskUnits)) //dstance infinity might be a bit much
         {
             result = hit2D.collider.gameObject;
-            Debug.Log("Game object " + hit2D.collider.gameObject);
-            Debug.Log("overlap " + hit2D.collider.OverlapPoint(mainCamera.ScreenToWorldPoint(mousePosition)));
+            //Debug.Log("Game object " + hit2D.collider.gameObject);
+            //Debug.Log("overlap " + hit2D.collider.OverlapPoint(mainCamera.ScreenToWorldPoint(mousePosition)));
             Physics.queriesHitTriggers = true;
             return true;
         }
@@ -92,8 +92,8 @@ public class SelectionManager : MonoBehaviour
         else if (hit2D = Physics2D.Raycast(mainCamera.ScreenToWorldPoint(mousePosition), direction, Mathf.Infinity, selectionMaskTerrain)) //dstance infinity might be a bit much
         {
             result = hit2D.collider.gameObject;
-            Debug.Log("Game object " + hit2D.collider.gameObject);
-            Debug.Log("overlap " + hit2D.collider.OverlapPoint(mainCamera.ScreenToWorldPoint(mousePosition)));
+            //Debug.Log("Game object " + hit2D.collider.gameObject);
+            //Debug.Log("overlap " + hit2D.collider.OverlapPoint(mainCamera.ScreenToWorldPoint(mousePosition)));
             Physics.queriesHitTriggers = true;
             return true;
         }

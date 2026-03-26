@@ -22,7 +22,7 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("Something entered collider");
+        //Debug.Log("Something entered collider");
         if (collision.gameObject.tag == "Player")
         {
             playerUnits.Add(collision.gameObject);
@@ -32,7 +32,7 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        Debug.Log("Something exited collider");
+        //Debug.Log("Something exited collider");
         playerUnits.Remove(collision.gameObject);
     }
 
