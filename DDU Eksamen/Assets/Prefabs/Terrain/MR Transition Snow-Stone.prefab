@@ -81,7 +81,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: a0b9c6ea0e73ab54aab5349270bc397d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9d14bd4e839c62749924660a01870635, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -229,7 +229,7 @@ GameObject:
   - component: {fileID: 5584569492824422340}
   - component: {fileID: 4394069314375117984}
   m_Layer: 7
-  m_Name: Stone Tile
+  m_Name: MR Transition Snow-Stone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -33,7 +33,8 @@ public class Enemy : MonoBehaviour
     private void OnTriggerExit2D(Collider2D collision)
     {
         //Debug.Log("Something exited collider");
-        playerUnits.Remove(collision.gameObject);
+        //playerUnits.Remove(collision.gameObject);
+        //Removed cuz game balance
     }
 
     public void enemyTurn()
@@ -87,25 +88,6 @@ public class Enemy : MonoBehaviour
             }
         }
         return null;
-    }
-
-
-    // kinda dont like this: Lasse, prefere the result other method
-    private GameObject FindClosestPlayerUnit(List<GameObject> playerUnits)
-    {
-        float shortestDistance = Mathf.Infinity;
-
-        GameObject closestPlayer = null;
-
-        foreach (GameObject playerUnit in playerUnits)
-        {
-            if ((playerUnit.transform.position - transform.position).magnitude < shortestDistance)
-            {
-                closestPlayer = playerUnit;
-            }
-        }
-
-        return closestPlayer;
     }
 
     // Finds the cheapest Neigbour of a player to get to
@@ -167,24 +149,5 @@ public class Enemy : MonoBehaviour
 
         unit.MoveThroughPath(path.Select(pos => unit.hexGrid.GetTileAt(pos).transform.position).ToList());
 
-    }
-
-
-    // cant see what i would use this fore tbh
-    private List<Vector3Int> FindCheapestPathToPlayer(GameObject player)
-    {
-        Vector3Int playerHex = unit.hexGrid.GetClosestHex(player.transform.position);
-        range = GraphSearch.BFSGetRange(unit.hexGrid, unit.hexGrid.GetClosestHex(transform.position), 10000);
-        int lowestCost = 10000;
-        Vector3Int closestNeighbour = new Vector3Int(10000, 10000, 10000);
-
-        foreach(Vector3Int neighbour in unit.hexGrid.GetNeighboursFor(playerHex))
-        {
-            if (range.costSoFar[neighbour] < lowestCost)
-            {
-                closestNeighbour = neighbour;
-            }
-        }
-        return range.GetPathTo(closestNeighbour);
     }
 }

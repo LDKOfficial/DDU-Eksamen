@@ -81,12 +81,12 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: a0b9c6ea0e73ab54aab5349270bc397d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8ec8c8a775d057a44bf1d179f37f09e2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 32, y: 32}
+  m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -203,7 +203,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 500
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: 2605cd805ff17c44786168fa7aa50f54, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -229,7 +229,7 @@ GameObject:
   - component: {fileID: 5584569492824422340}
   - component: {fileID: 4394069314375117984}
   m_Layer: 7
-  m_Name: Stone Tile
+  m_Name: Red stone Tile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -332,7 +332,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Hex
   highlight: {fileID: 0}
-  hextype: 1
+  hextype: 5
   isOccupied: 0
 --- !u!114 &4394069314375117984
 MonoBehaviour:
@@ -426,7 +426,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 500
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: c08046a2509ab7e4ca450b9635b86cd8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
