@@ -72,4 +72,16 @@ public static class Direction
     };
 
     public static List<Vector3Int> GetDirectionList(int y) => y % 2 == 0 ? directionsOffsetEven : directionsOffsetOdd; // if else statement
+
+    public static int GetDirection(Vector3Int StartPos, Vector3Int EndPos)
+    {
+        int direction = 0; // 0: N, 1: W, 2: S, 3: E.
+
+        List<Vector3Int> directionList = GetDirectionList(StartPos.y);
+
+        Vector3Int directionVector = EndPos - StartPos;
+
+
+        return direction;
+    }
 }

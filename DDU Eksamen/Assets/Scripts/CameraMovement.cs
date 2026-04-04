@@ -5,7 +5,7 @@ public class CameraMovement : MonoBehaviour
 {
     private Vector2 movementInput;
 
-    private Rigidbody2D rigidbody;
+    new private Rigidbody2D rigidbody;
 
     public int cameraSpeed = 1;
     private void Awake()
