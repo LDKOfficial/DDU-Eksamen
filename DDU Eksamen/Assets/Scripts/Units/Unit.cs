@@ -151,11 +151,11 @@ public class Unit : MonoBehaviour
         StartCoroutine(MovementCoroutine(firstTarget));
     }
 
-    private IEnumerator RotationCoroutine(Vector3 endPositione, float rotationDuration)
+    private IEnumerator RotationCoroutine(Vector3 endPosition, float rotationDuration)
     {
         Quaternion startRotation = transform.rotation;
-        endPositione.y = transform.position.y;
-        Vector3 direction = endPositione - transform.position;
+        endPosition.y = transform.position.y;
+        Vector3 direction = endPosition - transform.position;
         Quaternion endRotation = Quaternion.LookRotation(direction, Vector3.up);
 
         if (Mathf.Approximately(Mathf.Abs(Quaternion.Dot(startRotation, endRotation)), 1.0f) == false)
@@ -170,26 +170,37 @@ public class Unit : MonoBehaviour
             }
             transform.rotation = endRotation;
         }
-        StartCoroutine(MovementCoroutine(endPositione));
+        StartCoroutine(MovementCoroutine(endPosition));
 
         
     }
 
-    private IEnumerator MovementCoroutine(Vector3 endPositione)
+    private IEnumerator MovementCoroutine(Vector3 endPosition)
     {
         
         Vector3 startPosition = transform.position;
-        endPositione.z = startPosition.z;
+        endPosition.z = startPosition.z;
         float timeElapsed = 0;
+
+        animator.SetBool("Walking", true);
+
+        if (endPosition.x - transform.position.x < 0)
+        {
+            animator.SetInteger("Direction", 3);
+        }
+        else
+        {
+            animator.SetInteger("Direction", 1);
+        }
 
         while (timeElapsed < movementDuration)
         {
             timeElapsed += Time.deltaTime;
             float lerStep = timeElapsed / movementDuration;
-            transform.position = Vector3.Lerp(startPosition, endPositione, lerStep);
+            transform.position = Vector3.Lerp(startPosition, endPosition, lerStep);
             yield return null;
         }
-        transform.position = endPositione;
+        transform.position = endPosition;
 
         
 
@@ -204,6 +215,7 @@ public class Unit : MonoBehaviour
             //Debug.Log("Movement finished!");
             //hexGrid.GetTileAt(hexGrid.GetClosestHex(endPositione)).isOccupied = true;
             this.gameObject.GetComponent<Collider2D>().enabled = true;
+            animator.SetBool("Walking", false);
             MovementFinished?.Invoke(this);
         }
     }

@@ -73,13 +73,24 @@ public static class Direction
 
     public static List<Vector3Int> GetDirectionList(int y) => y % 2 == 0 ? directionsOffsetEven : directionsOffsetOdd; // if else statement
 
+
+    // not using this, but would use it if we had the correct walking animations for all the directions.
     public static int GetDirection(Vector3Int StartPos, Vector3Int EndPos)
     {
-        int direction = 0; // 0: N, 1: W, 2: S, 3: E.
+        int direction = 0; // 0: NW, 1: NE, 2: E, 3: SW, 4: SE, 5: W    This does not align with the animator as it is set up for the bad 4 direction animations we have
 
         List<Vector3Int> directionList = GetDirectionList(StartPos.y);
 
         Vector3Int directionVector = EndPos - StartPos;
+
+        foreach (Vector3Int directionCheck in directionList)
+        {
+            if (directionCheck == directionVector)
+            {
+                break;
+            }
+            direction++;
+        }
 
 
         return direction;
