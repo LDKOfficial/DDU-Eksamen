@@ -23483,6 +23483,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CameraMovement
   cameraSpeed: 6
+  cameraSpeedFast: 12
 --- !u!50 &519420035
 Rigidbody2D:
   serializedVersion: 5
@@ -74657,6 +74658,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 8ad92a21-4d6c-4554-bacb-c8c25eaecd6c
     m_ActionName: 'Move/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 519420034}
+        m_TargetAssemblyTypeName: CameraMovement, Assembly-CSharp
+        m_MethodName: SpeedUp
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 6d82e9ff-1894-46f6-8bba-7a2905fdf7ea
+    m_ActionName: 'Move/Shift[/Keyboard/shift]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Move

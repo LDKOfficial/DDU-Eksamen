@@ -876,7 +876,7 @@ MonoBehaviour:
   damage: 15
   attackCost: 5
   hexGrid: {fileID: 0}
-  movementDuration: 0.3
+  movementDuration: 0.5
   rotationDuration: 0.3
   UI: {fileID: 0}
   attackCostDisplay: {fileID: 0}
@@ -905,6 +905,7 @@ MonoBehaviour:
   - {fileID: 6679731304681979904}
   healthCounter: {fileID: 0}
   animator: {fileID: 6734561191142678579}
+  swordPivot: {fileID: 0}
   haveMoved: 0
 --- !u!114 &3770257931556059740
 MonoBehaviour:
