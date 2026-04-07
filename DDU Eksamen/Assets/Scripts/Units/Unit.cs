@@ -52,6 +52,9 @@ public class Unit : MonoBehaviour
     [SerializeField]
     private Animator animator;
 
+    [SerializeField]
+    private GameObject swordPivot;
+
     private bool isAlive = true;
 
     [HideInInspector]
@@ -222,8 +225,19 @@ public class Unit : MonoBehaviour
 
     public void Attack(Unit enemy)
     {
+
         if (actionPoints >= attackCost)
         {
+
+                Vector3 rotation = enemy.transform.position - transform.position;
+
+                float rotationZ = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
+
+                swordPivot.transform.rotation = Quaternion.Euler(0, 0, rotationZ);
+
+                animator.SetTrigger("SwordAttack");
+
+
             UpdateActionPoints(attackCost);
             enemy.TakeDamage(damage);
         }
