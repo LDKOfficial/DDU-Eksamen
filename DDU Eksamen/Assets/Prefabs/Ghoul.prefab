@@ -869,11 +869,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72f8f012ea2551a45a424e4fbbecb1d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Unit
-  maxActionPoints: 6
+  maxActionPoints: 3
   actionPoints: 0
-  maxHitPoints: 100
+  maxHitPoints: 40
   hitPoints: 20
-  damage: 20
+  damage: 15
   attackCost: 5
   hexGrid: {fileID: 0}
   movementDuration: 0.3
@@ -1013,7 +1013,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 5.875
+  m_Radius: 4
 --- !u!50 &3448884258984247063
 Rigidbody2D:
   serializedVersion: 5
