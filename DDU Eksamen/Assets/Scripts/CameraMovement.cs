@@ -32,7 +32,7 @@ public class CameraMovement : MonoBehaviour
     }
 
     public void SpeedUp(InputAction.CallbackContext context)
-    {
+    {   
 
         if (context.started)
             return;
