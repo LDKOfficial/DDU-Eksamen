@@ -332,7 +332,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Hex
   highlight: {fileID: 0}
-  hextype: 5
+  hextype: 6
   isOccupied: 0
 --- !u!114 &4394069314375117984
 MonoBehaviour:

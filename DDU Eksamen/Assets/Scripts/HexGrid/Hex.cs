@@ -10,8 +10,8 @@ public class Hex : MonoBehaviour
     public Highlight highlight;
 
 
-    [SerializeField]
-    private Hextype hextype; 
+
+    public Hextype hextype; 
 
     public Vector3Int HexCoords => hexcoordinates.GetHexCoords();
 
@@ -37,9 +37,15 @@ public class Hex : MonoBehaviour
 
     public bool IsObstacle()
     {
-        return this.hextype == Hextype.Obstacle;
-    }
+        bool isObstacle = false;
 
+        if (hextype == Hextype.Obstacle || hextype == Hextype.Wall)
+        {
+            isObstacle = true;
+        }
+
+        return isObstacle;
+    }
 }
 
 
@@ -50,5 +56,6 @@ public enum Hextype
     Difficult,
     Road,
     Water,
-    Obstacle
+    Obstacle,
+    Wall
 }

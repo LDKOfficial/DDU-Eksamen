@@ -14,11 +14,13 @@ public class UnitManager : MonoBehaviour
 
     private List<Enemy> enemiesInRange = new List<Enemy>();
 
+    private List<Enemy> enemiesInLineOfSite = new List<Enemy>();
+
     [SerializeField]
     private Unit selectedUnit;
     private Hex previouslySelectedHex;
 
-    
+    private bool preparedForSpecial = false;
 
     public void HandleUnitSelected(GameObject unit)
     {
@@ -81,7 +83,23 @@ public class UnitManager : MonoBehaviour
     {
         // bliver called af selection manager
 
-        // check er den en valid selection, hvis ja attack
+        if (preparedForSpecial)
+        { 
+            if (enemiesInLineOfSite.Contains(enemy.GetComponent<Enemy>()))
+            {
+                enemy.GetComponent<Unit>().highlight.ToggleValidSelectionHighlight(false);
+                enemy.GetComponent<Unit>().highlight.ToggleSelectedHighlight(true);
+                selectedUnit.SpecialAttack(enemy.GetComponent<Unit>());
+            }
+
+            foreach (Enemy enemyInLineOfSite in enemiesInLineOfSite)
+            {
+                enemyInLineOfSite.GetComponent<Unit>().highlight.ToggleValidSelectionHighlight(false);
+            }
+        }
+        else
+        {
+            // check er den en valid selection, hvis ja attack
 
             if (enemiesInRange.Contains(enemy.GetComponent<Enemy>()))
             {
@@ -95,6 +113,10 @@ public class UnitManager : MonoBehaviour
             {
                 enemyInRange.GetComponent<Unit>().highlight.ToggleValidSelectionHighlight(false);
             }
+        }
+
+
+ 
 
 
 
@@ -103,6 +125,8 @@ public class UnitManager : MonoBehaviour
     public void PrepareUnitForAttack(Unit unitReference)
     {
         // enable attack mode
+
+        preparedForSpecial = false;
 
         if (selectedUnit != null)
         {
@@ -142,6 +166,49 @@ public class UnitManager : MonoBehaviour
         
     }
 
+    public void PrepareUnitForSpecial(Unit unitReference)
+    {
+        preparedForSpecial = true;
+
+        if (selectedUnit != null)
+        {
+            Debug.Log("Clear old");
+            // clear old attack selection and previous selection with some if logic
+        }
+        selectedUnit = unitReference;
+
+        foreach (Enemy enemy in selectedUnit.enemiesInSpecialRange)
+        {
+            List<RaycastHit2D> raycastHit2Ds = new List<RaycastHit2D>();
+
+            Vector3 direction = enemy.transform.position - transform.position;
+            // raycast to see if obstructed by wall.
+            int results = Physics2D.Raycast(transform.position, direction, ContactFilter2D.noFilter, raycastHit2Ds, direction.magnitude);
+
+            Debug.Log($"Number of hits{results}");
+            bool hasLineofSight = true;
+            foreach (RaycastHit2D hit2D in raycastHit2Ds)
+            {
+                if (hit2D.collider.gameObject.TryGetComponent<Hex>(out Hex hex))
+                {
+                    if (hex.hextype == Hextype.Wall)
+                    {
+                        hasLineofSight = false;
+                        Debug.Log("Wall Detected");
+                        break;
+                    }
+                }
+            }
+
+            if (!hasLineofSight)
+                continue;
+
+            enemy.GetComponent<Unit>().highlight.ToggleValidSelectionHighlight(true);
+            enemiesInLineOfSite.Add(enemy);
+
+        }
+    }
+
     public void PrepareUnitForMovement() 
     {
         // also clear previous state with if logic after some check of what the fuck the previous state was
@@ -176,7 +243,7 @@ public class UnitManager : MonoBehaviour
         {
             movementSystem.MoveUnit(selectedUnit, hexGrid);
             canMove = false; // Might wanna change this messes with turns
-            selectedUnit.MovementFinished += ResetTurn; // Might wanna change this messes with turns
+            selectedUnit.movementFinished += ResetTurn; // Might wanna change this messes with turns
             // turn might just be to disable player doing stuff while we be movin
             ClearOldMovementSelection();
         }
@@ -205,7 +272,7 @@ public class UnitManager : MonoBehaviour
 
     private void ResetTurn(Unit selectedUnit) // bad name, doesnt interact with turn system
     {
-        selectedUnit.MovementFinished -= ResetTurn;
+        selectedUnit.movementFinished -= ResetTurn;
         canMove = true;
     }
 

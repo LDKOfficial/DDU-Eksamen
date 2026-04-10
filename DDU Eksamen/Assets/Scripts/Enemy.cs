@@ -3,6 +3,7 @@ using System;
 using System.Linq;
 using UnityEngine;
 using System.Collections.Generic;
+using static UnityEngine.EventSystems.EventTrigger;
 
 public class Enemy : MonoBehaviour
 {
@@ -47,33 +48,46 @@ public class Enemy : MonoBehaviour
         }
 
         // try attact if not, move, then try attact again?
+
+
+        if (!AttackClosestPlayer())
+        {
+            MoveToClosestPlayer();
+        }
+            
+    }
+
+    private bool AttackClosestPlayer()
+    {
         Unit neigbouringPlayer = FindPlayerOnNeigboringHex();
 
         if (neigbouringPlayer != null)
         {
             // attack and skib player movement
 
+
+            Vector3 rotation = neigbouringPlayer.transform.position - transform.position;
+
+            float rotationZ = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
+
+            unit.attackPivot.transform.rotation = Quaternion.Euler(0, 0, rotationZ);
+
+            unit.animator.SetTrigger("Attack");
+
             neigbouringPlayer.TakeDamage(damage);
 
+            return true;
         }
         else
         {
-            MoveToClosestPlayer();
-
-            neigbouringPlayer = FindPlayerOnNeigboringHex();
-
-            // attack
-
-            if (neigbouringPlayer != null)
-            {
-                // attack
-                neigbouringPlayer.TakeDamage(damage);
-            }
-
+            return false;
         }
-            
     }
 
+    public void Attack()
+    {
+        bool attacked = AttackClosestPlayer();  
+    }
 
     private Unit FindPlayerOnNeigboringHex()
     {

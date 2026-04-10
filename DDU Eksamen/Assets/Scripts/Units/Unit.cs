@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
 
@@ -19,9 +20,14 @@ public class Unit : MonoBehaviour
 
     [Header("")]
     public int damage = 20;
+    public int specialDamage = 30;
 
     [Header("Action Costs")]
     public int attackCost = 3;
+    public int specialCost = 3;
+
+    [Header("Special Ammo")]
+    public int specialAmmo = 3;
 
     [Header("Unity Shit")]
     public HexGrid hexGrid;
@@ -47,15 +53,23 @@ public class Unit : MonoBehaviour
 
     private Queue<Vector3> pathPositions = new Queue<Vector3>();
 
-    public event Action<Unit> MovementFinished;
+    public event Action<Unit> movementFinished;
+
+    public UnityEvent movementFinishedEvent;
+
+
+    public Animator animator;
+
+    public GameObject attackPivot;
 
     [SerializeField]
-    private Animator animator;
-
-    [SerializeField]
-    private GameObject swordPivot;
+    private GameObject specialAnimationPosition;
 
     private bool isAlive = true;
+
+
+    [HideInInspector]
+    public List<Enemy> enemiesInSpecialRange;
 
     [HideInInspector]
     public bool haveMoved = false;
@@ -74,6 +88,22 @@ public class Unit : MonoBehaviour
                 $"\n{hitPoints}" +
                 $"\n-----" +
                 $"\n{maxHitPoints}";
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            enemiesInSpecialRange.Add(collision.GetComponent<Enemy>());
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            enemiesInSpecialRange.Remove(collision.GetComponent<Enemy>());
         }
     }
 
@@ -219,7 +249,8 @@ public class Unit : MonoBehaviour
             //hexGrid.GetTileAt(hexGrid.GetClosestHex(endPositione)).isOccupied = true;
             this.gameObject.GetComponent<Collider2D>().enabled = true;
             animator.SetBool("Walking", false);
-            MovementFinished?.Invoke(this);
+            movementFinished?.Invoke(this);
+            movementFinishedEvent?.Invoke();
         }
     }
 
@@ -233,7 +264,7 @@ public class Unit : MonoBehaviour
 
                 float rotationZ = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
 
-                swordPivot.transform.rotation = Quaternion.Euler(0, 0, rotationZ);
+                attackPivot.transform.rotation = Quaternion.Euler(0, 0, rotationZ);
 
                 animator.SetTrigger("SwordAttack");
 
@@ -242,6 +273,20 @@ public class Unit : MonoBehaviour
             enemy.TakeDamage(damage);
         }
 
+    }
+
+    public void SpecialAttack(Unit enemy)
+    {
+        if (actionPoints >= specialCost && specialAmmo > 0)
+        {
+            specialAnimationPosition.transform.position = enemy.transform.position;
+
+            animator.SetTrigger("Special");
+
+            UpdateActionPoints(specialCost);
+            specialAmmo -= 1;
+            enemy.TakeDamage(specialDamage);
+        }
     }
 
     public void UpdateActionPoints(int actionPointCost)
