@@ -24,7 +24,7 @@ public class Enemy : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //Debug.Log("Something entered collider");
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "Player" && !collision.isTrigger)
         {
             playerUnits.Add(collision.gameObject);
         }

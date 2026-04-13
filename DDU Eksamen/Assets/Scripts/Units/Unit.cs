@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
 
@@ -24,7 +25,6 @@ public class Unit : MonoBehaviour
 
     [Header("Action Costs")]
     public int attackCost = 3;
-    public int specialCost = 3;
 
     [Header("Special Ammo")]
     public int specialAmmo = 3;
@@ -38,7 +38,10 @@ public class Unit : MonoBehaviour
     [Header("UI")]
     public GameObject UI;
     [SerializeField]
-    private TextMeshProUGUI attackCostDisplay;  
+    private TextMeshProUGUI attackCostDisplay;
+
+    [SerializeField]
+    private TextMeshProUGUI AmmoDisplay;
 
     [SerializeField]
     private List<GameObject> actionPointBarList = new List<GameObject>();
@@ -74,12 +77,15 @@ public class Unit : MonoBehaviour
     [HideInInspector]
     public bool haveMoved = false;
 
+    private GameObject eventsystem;
+
     public void Start()
     {
         hitPoints = maxHitPoints;
         actionPoints = maxActionPoints;
         hexGrid = FindFirstObjectByType<HexGrid>();
         hexGrid.GetTileAt(hexGrid.GetClosestHex(transform.position)).isOccupied = true;
+        eventsystem = FindFirstObjectByType<EventSystem>().gameObject;
 
         if (healthCounter != null)
         {
@@ -93,7 +99,7 @@ public class Unit : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Enemy")
+        if (collision.gameObject.tag == "Enemy" && !collision.isTrigger)
         {
             enemiesInSpecialRange.Add(collision.GetComponent<Enemy>());
         }
@@ -181,6 +187,7 @@ public class Unit : MonoBehaviour
         Vector3 firstTarget = pathPositions.Dequeue();
         //StartCoroutine(RotationCoroutine(firstTarget, rotationDuration))
         this.gameObject.GetComponent<Collider2D>().enabled = false;
+        eventsystem.SetActive(false);
         StartCoroutine(MovementCoroutine(firstTarget));
     }
 
@@ -248,6 +255,7 @@ public class Unit : MonoBehaviour
             //Debug.Log("Movement finished!");
             //hexGrid.GetTileAt(hexGrid.GetClosestHex(endPositione)).isOccupied = true;
             this.gameObject.GetComponent<Collider2D>().enabled = true;
+            eventsystem.SetActive(true);
             animator.SetBool("Walking", false);
             movementFinished?.Invoke(this);
             movementFinishedEvent?.Invoke();
@@ -277,14 +285,16 @@ public class Unit : MonoBehaviour
 
     public void SpecialAttack(Unit enemy)
     {
-        if (actionPoints >= specialCost && specialAmmo > 0)
+        if (specialAmmo > 0)
         {
             specialAnimationPosition.transform.position = enemy.transform.position;
 
             animator.SetTrigger("Special");
 
-            UpdateActionPoints(specialCost);
+            
             specialAmmo -= 1;
+
+            AmmoDisplay.text = $"Ammo: {specialAmmo}";
             enemy.TakeDamage(specialDamage);
         }
     }

@@ -52,17 +52,23 @@ public class UnitManager : MonoBehaviour
     private bool CheckIfSameUnitSelected(Unit unitReference)
     {
         Debug.Log("Checking if same unit selected");
+
         // i think this tries to deselect the unit, so update to also remove other selection when ui system actually further done
-        if (selectedUnit == unitReference)
+        
+        if (selectedUnit != null)
         {
-            Debug.Log("Same Unit selected");
-            //ClearOldMovementSelection();
-            selectedUnit.UI.SetActive(false);
-            selectedUnit = null;
-            // should clear all selections
-            // if selectedunit er i movement mode, then Clear movement selection...
-            return true;
+            if (selectedUnit.name == unitReference.name)
+            {
+                Debug.Log("Same Unit selected");
+                //ClearOldMovementSelection();
+                selectedUnit.UI.SetActive(false);
+                selectedUnit = null;
+                // should clear all selections
+                // if selectedunit er i movement mode, then Clear movement selection...
+                return true;
+            }
         }
+
         return false;
     }
 
@@ -173,7 +179,7 @@ public class UnitManager : MonoBehaviour
         if (selectedUnit != null)
         {
             Debug.Log("Clear old");
-            // clear old attack selection and previous selection with some if logic
+            // clear old special selection and previous selection with some if logic
         }
         selectedUnit = unitReference;
 
@@ -200,25 +206,30 @@ public class UnitManager : MonoBehaviour
                 }
             }
 
-            if (!hasLineofSight)
-                continue;
+            if (hasLineofSight)
+            {
+                enemy.GetComponent<Unit>().highlight.ToggleValidSelectionHighlight(true);
+                enemiesInLineOfSite.Add(enemy);
+            }
 
-            enemy.GetComponent<Unit>().highlight.ToggleValidSelectionHighlight(true);
-            enemiesInLineOfSite.Add(enemy);
+
 
         }
     }
 
-    public void PrepareUnitForMovement() 
+    public void PrepareUnitForMovement(Unit unitReference) 
     {
         // also clear previous state with if logic after some check of what the fuck the previous state was
-        if (selectedUnit != null & selectedUnit.haveMoved)
+        if (selectedUnit != null)
         {
-            Debug.Log("Clear old");
-            ClearOldMovementSelection(); 
+            if (selectedUnit.haveMoved)
+            {
+                Debug.Log("Clear old");
+                ClearOldMovementSelection();
+            }
         }
 
-        
+        selectedUnit = unitReference;
        
         selectedUnit.highlight.ToggleSelectedHighlight(true);
         movementSystem.ShowRange(selectedUnit, hexGrid);

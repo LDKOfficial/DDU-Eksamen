@@ -1830,7 +1830,7 @@ GameObject:
   - component: {fileID: 2428835000862134223}
   - component: {fileID: 8335245293848616352}
   m_Layer: 5
-  m_Name: Action Point Cost
+  m_Name: Ammo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1883,7 +1883,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'AP: 3'
+  m_text: 'Ammo: 3'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ffacf67d44b7cb14785a6e2b9c34f597, type: 2}
   m_sharedMaterial: {fileID: 3520578839822251909, guid: ffacf67d44b7cb14785a6e2b9c34f597, type: 2}
@@ -2064,7 +2064,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &940813791414694928
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4106,13 +4106,13 @@ MonoBehaviour:
   damage: 20
   specialDamage: 30
   attackCost: 3
-  specialCost: 3
   specialAmmo: 3
   hexGrid: {fileID: 0}
   movementDuration: 0.5
   rotationDuration: 0.3
   UI: {fileID: 5244075237609620730}
   attackCostDisplay: {fileID: 3283276891500723916}
+  AmmoDisplay: {fileID: 8335245293848616352}
   actionPointBarList:
   - {fileID: 7880351870247618573}
   - {fileID: 7441414343552719156}

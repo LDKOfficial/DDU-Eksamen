@@ -65380,10 +65380,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1849517643553858315, guid: b602f724345f53149b8e1634f052a451, type: 3}
+      propertyPath: m_SortingOrder
+      value: 240
+      objectReference: {fileID: 0}
+    - target: {fileID: 1849517643553858315, guid: b602f724345f53149b8e1634f052a451, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2668638272630587904, guid: b602f724345f53149b8e1634f052a451, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 2668638272630587904, guid: b602f724345f53149b8e1634f052a451, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2054352225}
+    - target: {fileID: 2668638272630587904, guid: b602f724345f53149b8e1634f052a451, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgument
+      value: 
+      objectReference: {fileID: 1365030092}
+    - target: {fileID: 2668638272630587904, guid: b602f724345f53149b8e1634f052a451, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: Unit, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 3438358772546756409, guid: b602f724345f53149b8e1634f052a451, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
       value: 2
