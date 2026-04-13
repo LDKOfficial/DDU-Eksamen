@@ -122,17 +122,15 @@ public class Unit : MonoBehaviour
 
     private void UpdateHealthBar()
     {
-
-        double hitPointPercent = Convert.ToDouble(hitPoints) / Convert.ToDouble(maxHitPoints);
-        Debug.Log(hitPointPercent);
-
-
         if (isAlive)
         {
             if (hitPoints < 0)
             {
                 hitPoints = 0;
             }
+
+            double hitPointPercent = Convert.ToDouble(hitPoints) / Convert.ToDouble(maxHitPoints);
+            Debug.Log(hitPointPercent);
 
             if (hitPoints == 0)
             {
