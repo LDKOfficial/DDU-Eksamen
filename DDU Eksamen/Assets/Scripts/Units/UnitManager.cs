@@ -121,11 +121,6 @@ public class UnitManager : MonoBehaviour
             }
         }
 
-
- 
-
-
-
     }
 
     public void PrepareUnitForAttack(Unit unitReference)
@@ -187,9 +182,9 @@ public class UnitManager : MonoBehaviour
         {
             List<RaycastHit2D> raycastHit2Ds = new List<RaycastHit2D>();
 
-            Vector3 direction = enemy.transform.position - transform.position;
+            Vector3 direction = enemy.transform.position - selectedUnit.transform.position;
             // raycast to see if obstructed by wall.
-            int results = Physics2D.Raycast(transform.position, direction, ContactFilter2D.noFilter, raycastHit2Ds, direction.magnitude);
+            int results = Physics2D.Raycast(selectedUnit.transform.position, direction, ContactFilter2D.noFilter, raycastHit2Ds, direction.magnitude);
 
             Debug.Log($"Number of hits{results}");
             bool hasLineofSight = true;
