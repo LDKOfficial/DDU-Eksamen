@@ -20,7 +20,11 @@ public class UnitManager : MonoBehaviour
     private Unit selectedUnit;
     private Hex previouslySelectedHex;
 
+    private bool preparedForAttack = false;
+
     private bool preparedForSpecial = false;
+
+    private bool preparedForMove = false;
 
     public void HandleUnitSelected(GameObject unit)
     {
@@ -127,13 +131,26 @@ public class UnitManager : MonoBehaviour
     {
         // enable attack mode
 
-        preparedForSpecial = false;
+        preparedForSpecial = false; // needs to be moved
 
         if (selectedUnit != null)
         {
             Debug.Log("Clear old");
             // clear old attack selection and previous selection with some if logic
+            if (preparedForAttack)
+            {
+                ClearOldAttackSelection();
+            }
+            else if (preparedForSpecial)
+            {
+                ClearOldSpecialSelection();
+            }
+            else if (preparedForMove)
+            {
+                ClearOldMovementSelection();
+            }
         }
+        preparedForAttack = true;
         selectedUnit = unitReference;
         Debug.Log(selectedUnit);
         Debug.Log(selectedUnit.transform.position);
@@ -169,13 +186,27 @@ public class UnitManager : MonoBehaviour
 
     public void PrepareUnitForSpecial(Unit unitReference)
     {
-        preparedForSpecial = true;
+
 
         if (selectedUnit != null)
         {
             Debug.Log("Clear old");
             // clear old special selection and previous selection with some if logic
+            if (preparedForAttack)
+            {
+                ClearOldAttackSelection();
+            }
+            else if (preparedForSpecial)
+            {
+                ClearOldSpecialSelection();
+            }
+            else if (preparedForMove)
+            {
+                ClearOldMovementSelection();
+            }
         }
+
+        preparedForSpecial = true;
         selectedUnit = unitReference;
 
         foreach (Enemy enemy in selectedUnit.enemiesInSpecialRange)
@@ -217,17 +248,42 @@ public class UnitManager : MonoBehaviour
         // also clear previous state with if logic after some check of what the fuck the previous state was
         if (selectedUnit != null)
         {
-            if (selectedUnit.haveMoved)
+            if (preparedForAttack)
             {
-                Debug.Log("Clear old");
+                ClearOldAttackSelection();
+            }
+            else if (preparedForSpecial)
+            {
+                ClearOldSpecialSelection();
+            }
+            else if (preparedForMove)
+            {
                 ClearOldMovementSelection();
             }
         }
-
+        preparedForMove = true;
         selectedUnit = unitReference;
        
         selectedUnit.highlight.ToggleSelectedHighlight(true);
         movementSystem.ShowRange(selectedUnit, hexGrid);
+    }
+
+    private void ClearOldAttackSelection()
+    {
+        foreach (Enemy enemy in enemiesInRange)
+        {
+            enemy.GetComponent<Unit>().highlight.ToggleValidSelectionHighlight(false);
+        }
+        preparedForAttack = false;
+    }
+
+    private void ClearOldSpecialSelection()
+    {
+        foreach (Enemy enemy in enemiesInLineOfSite)
+        {
+            enemy.GetComponent<Unit>().highlight.ToggleValidSelectionHighlight(false);
+        }
+        preparedForSpecial = false;
     }
 
     private void ClearOldMovementSelection()
@@ -236,6 +292,7 @@ public class UnitManager : MonoBehaviour
         selectedUnit.highlight.ToggleSelectedHighlight(false);
         movementSystem.HideRange(hexGrid);
         selectedUnit = null;
+        preparedForMove = false;
     }
 
     private void HandleTargetHexSelected(Hex selectedHex)
