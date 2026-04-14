@@ -76,6 +76,8 @@ public class Enemy : MonoBehaviour
 
             neigbouringPlayer.TakeDamage(damage);
 
+            unit.attackSound.Play();
+
             return true;
         }
         else

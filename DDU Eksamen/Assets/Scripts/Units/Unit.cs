@@ -65,6 +65,8 @@ public class Unit : MonoBehaviour
 
     public GameObject attackPivot;
 
+    public AudioSource attackSound;
+
     [SerializeField]
     private GameObject specialAnimationPosition;
 
@@ -266,14 +268,15 @@ public class Unit : MonoBehaviour
         if (actionPoints >= attackCost)
         {
 
-                Vector3 rotation = enemy.transform.position - transform.position;
+            Vector3 rotation = enemy.transform.position - transform.position;
 
-                float rotationZ = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
+            float rotationZ = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
 
-                attackPivot.transform.rotation = Quaternion.Euler(0, 0, rotationZ);
+            attackPivot.transform.rotation = Quaternion.Euler(0, 0, rotationZ);
 
-                animator.SetTrigger("SwordAttack");
+            animator.SetTrigger("SwordAttack");
 
+            attackSound.Play();
 
             UpdateActionPoints(attackCost);
             enemy.TakeDamage(damage);
