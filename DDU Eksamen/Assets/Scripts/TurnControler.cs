@@ -31,7 +31,7 @@ public class TurnControler : MonoBehaviour
         int counter = 0;
         foreach (GameObject player in playerUnits)
         {
-            if (!player.GetComponent<Unit>().isActiveAndEnabled)// somehow check if player is alive
+            if (!player.GetComponent<Unit>().isActiveAndEnabled)
             {
                 counter++;
             }
