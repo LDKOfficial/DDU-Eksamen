@@ -1043,7 +1043,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aebe72b33a766f247badd9c919dbe902, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainMenu
-  sceneName: Pixel perfect test
+  sceneName: Tutorial
 --- !u!1 &1937587603
 GameObject:
   m_ObjectHideFlags: 0
