@@ -44,7 +44,8 @@ public class TurnControler : MonoBehaviour
     }
 
     private void PlayerTurnStart()
-    {
+    {        
+        // Enabel at spilleren kan gøre ting, og reset stats som movement og actions
         EnableDeathScreen();
         isPlayerTurn = true;
         turnCounter++;
@@ -55,10 +56,8 @@ public class TurnControler : MonoBehaviour
         foreach (GameObject unit in playerUnits)
         {
             unit.GetComponent<Unit>().actionPoints = unit.GetComponent<Unit>().maxActionPoints;
-            unit.GetComponent<Unit>().UpdateActionPoints(0); // fucking hate this but it does le UI update
+            unit.GetComponent<Unit>().UpdateActionPoints(0);
         }
-        
-        // Enabel at spilleren kan gøre ting, og reset stats som movement og actions
     }
 
     public void PlayerTurnEnd()
@@ -66,18 +65,15 @@ public class TurnControler : MonoBehaviour
         // Called by UI Ends player turn
         isPlayerTurn = false;
 
-
-        //PlayerTurnStart(); // temp
-        EnemyTurnStart(); // at end of method temp disabled
+        EnemyTurnStart();
     }
 
     private void EnemyTurnStart()
     {
-        // Disable at spilleren kan gøre ting, og flytte på enemies, angribe med enemies og tager ande actions.
         Debug.Log("Enemy turn started");
         enemyController.EnemyTurn();
 
-        PlayerTurnStart(); // temp
+        PlayerTurnStart(); 
     }
 
 
