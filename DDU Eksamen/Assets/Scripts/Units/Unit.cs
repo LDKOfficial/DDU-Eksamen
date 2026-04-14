@@ -68,6 +68,9 @@ public class Unit : MonoBehaviour
     public AudioSource attackSound;
 
     [SerializeField]
+    private AudioSource specialAttackSound;
+
+    [SerializeField]
     private GameObject specialAnimationPosition;
 
     private bool isAlive = true;
@@ -292,6 +295,7 @@ public class Unit : MonoBehaviour
 
             animator.SetTrigger("Special");
 
+            specialAttackSound.Play();
             
             specialAmmo -= 1;
 
