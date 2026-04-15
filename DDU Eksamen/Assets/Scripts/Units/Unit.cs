@@ -71,6 +71,9 @@ public class Unit : MonoBehaviour
     private AudioSource specialAttackSound;
 
     [SerializeField]
+    private AudioSource walkingSound;
+
+    [SerializeField]
     private GameObject specialAnimationPosition;
 
     private bool isAlive = true;
@@ -226,6 +229,7 @@ public class Unit : MonoBehaviour
         float timeElapsed = 0;
 
         animator.SetBool("Walking", true);
+        walkingSound.Play();
 
         if (endPosition.x - transform.position.x < 0)
         {
@@ -260,6 +264,7 @@ public class Unit : MonoBehaviour
             this.gameObject.GetComponent<Collider2D>().enabled = true;
             eventsystem.SetActive(true);
             animator.SetBool("Walking", false);
+            walkingSound.Stop();
             movementFinished?.Invoke(this);
             movementFinishedEvent?.Invoke();
         }
@@ -286,7 +291,7 @@ public class Unit : MonoBehaviour
         }
 
     }
-
+    
     public void SpecialAttack(Unit enemy)
     {
         if (specialAmmo > 0)
