@@ -9,8 +9,6 @@ public class Enemy : MonoBehaviour
 {
     private Unit unit;
 
-    int damage = 10;
-
     private BFSResult range;
 
     List<GameObject> playerUnits = new List<GameObject>();
@@ -31,13 +29,6 @@ public class Enemy : MonoBehaviour
         
     }
 
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        //Debug.Log("Something exited collider");
-        //playerUnits.Remove(collision.gameObject);
-        //Removed cuz game balance
-    }
-
     public void enemyTurn()
     {
 
@@ -47,8 +38,7 @@ public class Enemy : MonoBehaviour
             return;
         }
 
-        // try attact if not, move, then try attact again?
-
+        // try attact if not, move, then try attact again
 
         if (!AttackClosestPlayer())
         {
@@ -63,8 +53,6 @@ public class Enemy : MonoBehaviour
 
         if (neigbouringPlayer != null)
         {
-            // attack and skib player movement
-
 
             Vector3 rotation = neigbouringPlayer.transform.position - transform.position;
 
@@ -74,7 +62,7 @@ public class Enemy : MonoBehaviour
 
             unit.animator.SetTrigger("Attack");
 
-            neigbouringPlayer.TakeDamage(damage);
+            neigbouringPlayer.TakeDamage(unit.damage);
 
             unit.attackSound.Play();
 
@@ -133,17 +121,11 @@ public class Enemy : MonoBehaviour
     }
 
 
-    // should move enemy to closest player
+    // move enemy to closest player
     private void MoveToClosestPlayer()
     {
-        //GetNeighbour to player and somehow select a nerby tile in range and move there
-        // Use FindCheapestNeighbourOfAPlayer to find the position to move to, then use the movement system or something to move after finding path with graphsearch.
-
 
         Vector3Int cheapestNeigbour = FindCheapestNeighbourOfAPlayer(playerUnits);
-
-
-        // not have infinite  movement
 
         List<Vector3Int> fullPath = range.GetPathTo(cheapestNeigbour);
 
@@ -159,7 +141,7 @@ public class Enemy : MonoBehaviour
             }
             else
             {
-                break; // Wow i aktually tried to optimise code for once in my in my life
+                break; 
             }
         }
 
