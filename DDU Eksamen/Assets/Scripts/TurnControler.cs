@@ -16,8 +16,6 @@ public class TurnControler : MonoBehaviour
     [SerializeField]
     private GameObject deathScreen;
 
-    [SerializeField]
-    private EnemyController enemyController;
 
     public int turnCounter = 1;
 
