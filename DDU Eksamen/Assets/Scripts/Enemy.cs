@@ -106,7 +106,7 @@ public class Enemy : MonoBehaviour
         {
             foreach (Vector3Int neighbour in unit.hexGrid.GetNeighboursFor(unit.hexGrid.GetClosestHex(playerUnit.transform.position)))
             {
-                if (!unit.hexGrid.GetTileAt(neighbour).IsObstacle() & unit.hexGrid.GetTileAt(neighbour).isOccupied == false)
+                if (!unit.hexGrid.GetTileAt(neighbour).IsObstacle() & !unit.hexGrid.GetTileAt(neighbour).isOccupied)
                 {
                     if (range.costSoFar[neighbour] < cheapestCost)
                     {
