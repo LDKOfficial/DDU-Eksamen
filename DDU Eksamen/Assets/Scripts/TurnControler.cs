@@ -2,12 +2,16 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System.Linq;
 
 public class TurnControler : MonoBehaviour
 {
 
     // Liste af spiller karakterer
     private List<GameObject> playerUnits = new List<GameObject>();
+
+    // Liste af enemies
+    private List<Enemy> Enemies;
 
     [SerializeField]
     private GameObject deathScreen;
@@ -21,6 +25,11 @@ public class TurnControler : MonoBehaviour
 
     [SerializeField]
     private TextMeshProUGUI turnCounterDisplay;
+
+    void Start()
+    {
+        Enemies = FindObjectsByType<Enemy>(FindObjectsSortMode.None).ToList();
+    }
     void Awake()
     {
         playerUnits.AddRange(GameObject.FindGameObjectsWithTag("Player"));
@@ -65,14 +74,32 @@ public class TurnControler : MonoBehaviour
         // Called by UI Ends player turn
         isPlayerTurn = false;
 
-        EnemyTurnStart();
+        EnemyTurn();
     }
 
-    private void EnemyTurnStart()
+    private void EnemyTurn()
     {
         Debug.Log("Enemy turn started");
-        enemyController.EnemyTurn();
+        List<Enemy> enemiesToRemove = new List<Enemy>();
 
+        Debug.Log("Enemy turn in enemy controller");
+        foreach (Enemy enemy in Enemies)
+        {
+            if (!enemy.enabled)
+            {
+                enemiesToRemove.Add(enemy);
+            }
+            else
+            {
+                Debug.Log("Enemy Turn");
+                enemy.enemyTurn();
+            }
+        }
+
+        foreach (Enemy enemy in enemiesToRemove)
+        {
+            Enemies.Remove(enemy);
+        }
         PlayerTurnStart(); 
     }
 }
