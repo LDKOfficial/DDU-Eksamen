@@ -25,6 +25,7 @@ public class MusicController : MonoBehaviour
         {
             Debug.Log("Player entered Boss Area");
             SwitchToBossMsuic();
+            this.GetComponent<Collider2D>().enabled = false;
         }
 
     }
