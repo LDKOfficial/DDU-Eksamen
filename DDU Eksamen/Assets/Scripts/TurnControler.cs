@@ -75,6 +75,4 @@ public class TurnControler : MonoBehaviour
 
         PlayerTurnStart(); 
     }
-
-
 }
