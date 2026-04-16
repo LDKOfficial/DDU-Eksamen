@@ -21,17 +21,14 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        //Debug.Log("Something entered collider");
         if (collision.gameObject.tag == "Player" && !collision.isTrigger)
         {
             playerUnits.Add(collision.gameObject);
         }
-        
     }
 
     public void enemyTurn()
     {
-
         if (playerUnits.Count == 0)
         {
             Debug.Log("Enemy skips movement");
@@ -39,12 +36,10 @@ public class Enemy : MonoBehaviour
         }
 
         // try attact if not, move, then try attact again
-
         if (!AttackClosestPlayer())
         {
             MoveToClosestPlayer();
         }
-            
     }
 
     private bool AttackClosestPlayer()
@@ -53,7 +48,6 @@ public class Enemy : MonoBehaviour
 
         if (neigbouringPlayer != null)
         {
-
             Vector3 rotation = neigbouringPlayer.transform.position - transform.position;
 
             float rotationZ = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
@@ -124,7 +118,6 @@ public class Enemy : MonoBehaviour
     // move enemy to closest player
     private void MoveToClosestPlayer()
     {
-
         Vector3Int cheapestNeigbour = FindCheapestNeighbourOfAPlayer(playerUnits);
 
         List<Vector3Int> fullPath = range.GetPathTo(cheapestNeigbour);
@@ -146,6 +139,5 @@ public class Enemy : MonoBehaviour
         }
 
         unit.MoveThroughPath(path.Select(pos => unit.hexGrid.GetTileAt(pos).transform.position).ToList());
-
     }
 }
