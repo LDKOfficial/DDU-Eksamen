@@ -15,7 +15,8 @@ public class Dialog : MonoBehaviour
     [SerializeField]
     private GameObject endButton;
 
-
+    [SerializeField]
+    private AudioSource dialogSound;
 
     private void Awake()
     {
@@ -36,6 +37,7 @@ public class Dialog : MonoBehaviour
 
         dialogBox.text = "";
 
+        dialogSound.Play();
 
         while (charctersToAdd.Count > 0)
         {
@@ -43,6 +45,8 @@ public class Dialog : MonoBehaviour
 
             yield return new WaitForSecondsRealtime(secondsToWaitBetweenLetters);
         }
+
+        dialogSound.Stop();
 
         endButton.SetActive(true);
 
