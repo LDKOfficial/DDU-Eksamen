@@ -999,7 +999,7 @@ MonoBehaviour:
   actionPoints: 0
   maxHitPoints: 40
   hitPoints: 20
-  damage: 15
+  damage: 10
   specialDamage: 30
   attackCost: 5
   specialAmmo: 3
