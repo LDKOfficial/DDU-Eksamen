@@ -31,8 +31,7 @@ public class Unit : MonoBehaviour
 
     [Header("Unity Shit")]
     public HexGrid hexGrid;
-    public float movementDuration = 1, rotationDuration = 0.3f; //rotation Duration might not be useful for us as it rotates the 3D objekt in tutorial
-
+    public float movementDuration = 1;
     
 
     [Header("UI")]
@@ -197,30 +196,6 @@ public class Unit : MonoBehaviour
         StartCoroutine(MovementCoroutine(firstTarget));
     }
 
-    private IEnumerator RotationCoroutine(Vector3 endPosition, float rotationDuration)
-    {
-        Quaternion startRotation = transform.rotation;
-        endPosition.y = transform.position.y;
-        Vector3 direction = endPosition - transform.position;
-        Quaternion endRotation = Quaternion.LookRotation(direction, Vector3.up);
-
-        if (Mathf.Approximately(Mathf.Abs(Quaternion.Dot(startRotation, endRotation)), 1.0f) == false)
-        {
-            float timeElapsed = 0;
-            while (timeElapsed < rotationDuration)
-            {
-                timeElapsed += Time.deltaTime;
-                float lerpStep = timeElapsed / rotationDuration;
-                transform.rotation = Quaternion.Lerp(startRotation, endRotation, lerpStep);
-                yield return null;
-            }
-            transform.rotation = endRotation;
-        }
-        StartCoroutine(MovementCoroutine(endPosition));
-
-        
-    }
-
     private IEnumerator MovementCoroutine(Vector3 endPosition)
     {
         
@@ -272,10 +247,8 @@ public class Unit : MonoBehaviour
 
     public void Attack(Unit enemy)
     {
-
         if (actionPoints >= attackCost)
         {
-
             Vector3 rotation = enemy.transform.position - transform.position;
 
             float rotationZ = Mathf.Atan2(rotation.y, rotation.x) * Mathf.Rad2Deg;
@@ -289,7 +262,6 @@ public class Unit : MonoBehaviour
             UpdateActionPoints(attackCost);
             enemy.TakeDamage(damage);
         }
-
     }
     
     public void SpecialAttack(Unit enemy)
