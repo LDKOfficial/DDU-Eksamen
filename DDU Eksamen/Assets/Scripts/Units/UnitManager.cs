@@ -28,14 +28,7 @@ public class UnitManager : MonoBehaviour
 
     public void HandleUnitSelected(GameObject unit)
     {
-        /*
-        Debug.Log(canMove);
-        if (canMove == false)
-            return; // Does smth with turns might wanna look into it when done
-        */
         Unit unitReference = unit.GetComponent<Unit>();
-
-        //Debug.Log(unitReference.ToString());
 
         if (CheckIfSameUnitSelected(unitReference))
             return;
@@ -50,7 +43,6 @@ public class UnitManager : MonoBehaviour
 
         selectedUnit.UI.SetActive(true);
         
-        //PrepareUnitForMovement(unitReference);
     }
 
     private bool CheckIfSameUnitSelected(Unit unitReference)
