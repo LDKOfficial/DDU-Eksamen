@@ -2064,7 +2064,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &940813791414694928
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4112,7 +4112,6 @@ MonoBehaviour:
   specialAmmo: 3
   hexGrid: {fileID: 0}
   movementDuration: 0.5
-  rotationDuration: 0.3
   UI: {fileID: 5244075237609620730}
   attackCostDisplay: {fileID: 3283276891500723916}
   AmmoDisplay: {fileID: 8335245293848616352}
