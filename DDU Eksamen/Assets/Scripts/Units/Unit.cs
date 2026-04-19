@@ -136,7 +136,6 @@ public class Unit : MonoBehaviour
             }
 
             double hitPointPercent = Convert.ToDouble(hitPoints) / Convert.ToDouble(maxHitPoints);
-            Debug.Log(hitPointPercent);
 
             if (hitPoints == 0)
             {
