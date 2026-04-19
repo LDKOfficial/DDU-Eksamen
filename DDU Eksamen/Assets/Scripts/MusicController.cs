@@ -49,7 +49,6 @@ public static class AudioSourceExit
         audioSource.clip = newMusic;
         yield return FadeIn(audioSource, fadeTimeIn);
     }
-
     public static IEnumerator FadeOut(AudioSource audioSource, float fadeTime)
     {
         float startVolume = audioSource.volume;
@@ -61,7 +60,6 @@ public static class AudioSourceExit
         audioSource.Stop();
         audioSource.volume = 0;
     }
-
     public static IEnumerator FadeIn(AudioSource audioSource, float fadeTime)
     {
         float startVolume = 0.2f;
