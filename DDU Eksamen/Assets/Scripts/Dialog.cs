@@ -25,7 +25,6 @@ public class Dialog : MonoBehaviour
 
     private IEnumerator DialogScrollCorutine()
     {
-
         char[] charactersInDialog = dialogBox.text.ToCharArray();
 
         Queue<char> charctersToAdd = new Queue<char>();
@@ -49,12 +48,10 @@ public class Dialog : MonoBehaviour
         dialogSound.Stop();
 
         endButton.SetActive(true);
-
     }
 
     public void HideDialog()
     {
         Destroy(this.gameObject);
-        
     }
 }
