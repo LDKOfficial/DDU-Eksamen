@@ -160,12 +160,9 @@ public class UnitManager : MonoBehaviour
 
     public void PrepareUnitForSpecial(Unit unitReference)
     {
-
-
         if (selectedUnit != null)
         {
             Debug.Log("Clear old");
-            // clear old special selection and previous selection with some if logic
             ClearOldSelection();
         }
 
@@ -200,9 +197,6 @@ public class UnitManager : MonoBehaviour
                 enemy.GetComponent<Unit>().highlight.ToggleValidSelectionHighlight(true);
                 enemiesInLineOfSite.Add(enemy);
             }
-
-
-
         }
     }
 
